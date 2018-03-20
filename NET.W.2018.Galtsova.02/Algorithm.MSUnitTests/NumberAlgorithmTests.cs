@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Algorithm;
 
 namespace Algorithm.MSUnitTests
 {
@@ -42,7 +41,6 @@ namespace Algorithm.MSUnitTests
 
             Assert.AreEqual(expected, result);
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

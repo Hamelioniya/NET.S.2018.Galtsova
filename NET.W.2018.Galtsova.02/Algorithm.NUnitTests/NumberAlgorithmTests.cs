@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Algorithm.NUnitTests
 {
     [TestFixture]
-    class NumberAlgorithmTests
+    public class NumberAlgorithmTests
     {
         [TestCase(15, 15, 0, 0, ExpectedResult = 15)]
         [TestCase(8, 15, 0, 0, ExpectedResult = 9)]
@@ -33,6 +31,7 @@ namespace Algorithm.NUnitTests
         [TestCase(1234321, ExpectedResult = 1241233)]
         [TestCase(1234126, ExpectedResult = 1234162)]
         [TestCase(3456432, ExpectedResult = 3462345)]
+        [TestCase(537421, ExpectedResult = 541237)]
         [TestCase(10, ExpectedResult = -1)]
         [TestCase(20, ExpectedResult = -1)]
         public int FindNextBiggerNumber_NextBiggerFindingTests(int number)
@@ -47,14 +46,14 @@ namespace Algorithm.NUnitTests
         }
 
         [TestCase(new[] { 1, 2, 3, 4, 5, 6, 7, 68, 69, 70, 15, 17 }, 7, ExpectedResult = new[] { 7, 70, 17 })]
-        [TestCase(new[] { 1, 2, 3, 4, 5, 6, 7, 68, 69, 70, 15, 17 }, 7, ExpectedResult = new[] { 7, 70, 17})]
+        [TestCase(new[] { 1, 2, 3, 4, 5, 6, 7, 68, 69, 70, 15, 17 }, 7, ExpectedResult = new[] { 7, 70, 17 })]
         [TestCase(new[] { 20, 20, 20 }, 2, ExpectedResult = new[] { 20, 20, 20 })]
-        [TestCase(new[] {1, 2, 3, 4, 5, 6}, 7, ExpectedResult = new int[0])]
+        [TestCase(new[] { 1, 2, 3, 4, 5, 6 }, 7, ExpectedResult = new int[0])]
         [TestCase(new[] { 10, 20, 30, 100, 181 }, 1, ExpectedResult = new[] { 10, 100, 181 })]
         [TestCase(new[] { 100, 101, 102, 103, 113, 104, 131, 128 }, 3, ExpectedResult = new[] { 103, 113, 131 })]
         [TestCase(new int[0], 3, ExpectedResult = new int[0])]
-        [TestCase(new[] {1}, 3, ExpectedResult = new int[0])]
-        [TestCase(new[] { 1, 11, 111, 1111, 11111 }, 111, ExpectedResult = new[] { 111, 1111, 11111})]
+        [TestCase(new[] { 1 }, 3, ExpectedResult = new int[0])]
+        [TestCase(new[] { 1, 11, 111, 1111, 11111 }, 111, ExpectedResult = new[] { 111, 1111, 11111 })]
         [TestCase(new[] { 1, 111, 111, 1111, 11111 }, 111, ExpectedResult = new[] { 111, 111, 1111, 11111 })]
         public int[] FilterDigit_GetNumbersWithSearchNumberTests(int[] numbers, int searchNumber)
         {
