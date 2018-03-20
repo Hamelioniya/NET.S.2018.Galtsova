@@ -9,16 +9,7 @@ namespace Logic.NUnitTests
 {
     [TestFixture]
     public class QuickSortAlgorithmTests
-    {
-
-        private bool isSorted(int[] array)
-        {
-            for (int i = 0; i < array.Length - 1; i++)
-                if (array[i] > array[i + 1])
-                    return false;
-            return true;
-        }
-
+    { 
         [TestCase(new[] { 1, 2, 3, 4, 5, 6 })]
         [TestCase(new[] { 6, 5, 4, 3, 2, 1 })]
         [TestCase(new[] { 4, 3, 6, 1, 2, 5 })]
@@ -28,8 +19,20 @@ namespace Logic.NUnitTests
         {
             QuickSortAlgorithm.Sort(array);
 
-            Assert.IsTrue(isSorted(array));
+            Assert.IsTrue(IsSorted(array));
         }
 
+        private bool IsSorted(int[] array)
+        {
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i] > array[i + 1])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace Logic
 {
+    /// <summary>
+    /// Provides methods of merge sort.
+    /// </summary>
     public class MergeSortAlgorithm
     {
+        #region Public method of merge sort
+
+        /// <summary>
+        /// This method sorts data array by merge sort.
+        /// </summary>
+        /// <param name="arrayForSort">Data array for sort.</param>
         public static void Sort(int[] arrayForSort)
         {
             InputVerification.VerifyInputCorrect(arrayForSort);
@@ -15,13 +20,21 @@ namespace Logic
             int[] buffer = ArrayDivisionAndSort(arrayForSort);
 
             for (int i = 0; i < arrayForSort.Length; i++)
+            {
                 arrayForSort[i] = buffer[i];
+            }
         }
+
+        #endregion
+
+        #region Private methods of merge sort
 
         private static int[] ArrayDivisionAndSort(int[] arrayForSort)
         {
             if (arrayForSort.Length <= 1)
+            {
                 return arrayForSort;
+            }
 
             int centerOfArray = arrayForSort.Length / 2;
 
@@ -47,12 +60,14 @@ namespace Logic
                     rightIndex++;
                     continue;
                 }
+
                 if (rightIndex == secondArray.Length)
                 {
                     buffer[index] = firstArray[leftIndex];
                     leftIndex++;
                     continue;
                 }
+
                 if (firstArray[leftIndex] < secondArray[rightIndex])
                 {
                     buffer[index] = firstArray[leftIndex];
@@ -63,11 +78,11 @@ namespace Logic
                     buffer[index] = secondArray[rightIndex];
                     rightIndex++;
                 }
-
             }
 
             return buffer;
         }
 
+        #endregion
     }
 }

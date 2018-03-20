@@ -1,20 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic
 {
+    /// <summary>
+    /// Provides a method of input data verification.
+    /// </summary>
     public static class InputVerification
     {
+        /// <summary>
+        /// This method checks input data array.
+        /// </summary>
+        /// <param name="inputArray">Input data array.</param>
         public static void VerifyInputCorrect(int[] inputArray)
         {
             if (inputArray == null)
-                throw new ArgumentNullException("Array must be not null");
+            {
+                throw new ArgumentNullException(nameof(inputArray));
+            }
 
             if (inputArray.Length < 1)
-                throw new ArgumentOutOfRangeException("Array length must be more than 0");
+            {
+                throw new ArgumentOutOfRangeException("Array length must be more than 0", nameof(inputArray));
+            }
         }
     }
 }
