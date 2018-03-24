@@ -69,18 +69,25 @@ namespace Algorithm.NUnitTests
             Assert.Throws<ArgumentNullException>(() => NumberAlgorithm.FilterDigit(numbersList, searchNumber));
         }
 
-        [TestCase(1, 5, 0.0001d, ExpectedResult = 1)]
-        [TestCase(8, 3, 0.0001d, ExpectedResult = 2)]
-        [TestCase(0.001, 3, 0.0001d, ExpectedResult = 0.1)]
-        [TestCase(0.04100625, 4, 0.0001d, ExpectedResult = 0.45)]
-        [TestCase(8d, 3, 0.0001, ExpectedResult = 2)]
-        [TestCase(0.0279936, 7, 0.0001d, ExpectedResult = 0.6)]
-        [TestCase(0.0081, 4, 0.01, ExpectedResult = 0.3)]
-        [TestCase(-0.008, 3, 0.1, ExpectedResult = -0.2)]
-        [TestCase(0.004241979, 9, 0.00000001, ExpectedResult = 0.545)]
-        public double FindNthRoot_RootFindingTests(double number, int rootPower, double eps)
+        [TestCase(1, 5, 0.0001d)]
+        [TestCase(8, 3, 0.0001d)]
+        [TestCase(0.001, 3, 0.0001d)]
+        [TestCase(0.04100625, 4, 0.0001d)]
+        [TestCase(8d, 3, 0.0001)]
+        [TestCase(0.0279936, 7, 0.0001d)]
+        [TestCase(0.0081, 4, 0.01)]
+        [TestCase(-0.008, 3, 0.1)]
+        [TestCase(0.004241979, 9, 0.00000001)]
+        public void FindNthRoot_RootFindingTests(double number, int rootPower, double eps)
         {
-            return Math.Round(NumberAlgorithm.FindNthRoot(number, rootPower, eps), eps.ToString("0.##########").Split(',')[1].Length);
+            if(number < 0)
+            {
+                Assert.IsTrue(Math.Abs(NumberAlgorithm.FindNthRoot(number, rootPower, eps) + Math.Pow(Math.Abs(number), 1.0 / rootPower)) < eps);
+            }
+            else
+            {
+                Assert.IsTrue(Math.Abs(NumberAlgorithm.FindNthRoot(number, rootPower, eps) - Math.Pow(number, 1.0 / rootPower)) < eps);
+            }
         }
 
         [TestCase(1, -5, 0.0001)]
