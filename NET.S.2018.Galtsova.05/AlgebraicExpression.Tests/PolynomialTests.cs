@@ -24,9 +24,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = new Polynomial(coefficientsPolynomial1);
             Polynomial polynomial2 = null;
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 + polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 + polynomial2; });
         }
 
         [TestCase(new[] { 0d, 1d, 2d, 3d }, new[] { 0d, 1d, 2d, 3d })]
@@ -34,9 +33,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = null;
             Polynomial polynomial2 = new Polynomial(coefficientsPolynomial2);
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 + polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 + polynomial2; });
         }
 
         [TestCase(new[] { 0d })]
@@ -44,9 +42,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = null;
             Polynomial polynomial2 = null;
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 + polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 + polynomial2; });
         }
 
         #endregion !operator + tests
@@ -69,9 +66,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = new Polynomial(coefficientsPolynomial1);
             Polynomial polynomial2 = null;
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 - polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 - polynomial2; });
         }
 
         [TestCase(new[] { 0d, 1d, 2d, 3d }, new[] { 0d, 1d, 2d, 3d })]
@@ -79,9 +75,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = null;
             Polynomial polynomial2 = new Polynomial(coefficientsPolynomial2);
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 - polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 - polynomial2; });
         }
 
         [TestCase(new[] { 0d })]
@@ -89,9 +84,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = null;
             Polynomial polynomial2 = null;
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 - polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 - polynomial2; });
         }
 
         #endregion !operator - tests
@@ -114,9 +108,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = new Polynomial(coefficientsPolynomial1);
             Polynomial polynomial2 = null;
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 * polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 * polynomial2; });
         }
 
         [TestCase(new[] { 0d, 1d, 2d, 3d }, new[] { 0d })]
@@ -124,9 +117,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = null;
             Polynomial polynomial2 = new Polynomial(coefficientsPolynomial2);
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 * polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 * polynomial2; });
         }
 
         [TestCase(new[] { 0d })]
@@ -134,9 +126,8 @@ namespace AlgebraicExpression.Tests
         {
             Polynomial polynomial1 = null;
             Polynomial polynomial2 = null;
-            Polynomial result = new Polynomial(coefficientsResultPolynomial);
 
-            Assert.IsTrue(result == polynomial1 * polynomial2);
+            Assert.Throws<ArgumentNullException>(() => { Polynomial result = polynomial1 * polynomial2; });
         }
 
         #endregion !operator * tests

@@ -7,6 +7,8 @@ namespace AlgebraicExpression
     /// </summary>
     public sealed class Polynomial
     {
+        private const double DefaultAccuracy = 0.001D;
+
         #region Private fields
 
         private double[] _coefficients;
@@ -51,40 +53,40 @@ namespace AlgebraicExpression
         /// and <paramref name="polynomial2"/>.</returns>
         public static Polynomial operator +(Polynomial polynomial1, Polynomial polynomial2)
         {
-            if (ReferenceEquals(polynomial1, null) & ReferenceEquals(polynomial2, null))
-            {
-                return new Polynomial(new[] { 0d });
-            }
-
             if (ReferenceEquals(polynomial1, null))
             {
-                return polynomial2;
+                throw new ArgumentNullException(nameof(polynomial1));
             }
 
             if (ReferenceEquals(polynomial2, null))
             {
-                return polynomial1;
+                throw new ArgumentNullException(nameof(polynomial2));
             }
 
             double[] resultCoefficients = null;
+            double[] coeffPolynomial1 = new double[polynomial1.MaxExponent + 1];
+            double[] coeffPolynomial2 = new double[polynomial2.MaxExponent + 1];
             int minMaxExponent = 0;
 
-            if (polynomial1.MaxExponent > polynomial2.MaxExponent)
+            Array.Copy(polynomial1._coefficients, coeffPolynomial1, polynomial1.MaxExponent + 1);
+            Array.Copy(polynomial2._coefficients, coeffPolynomial2, polynomial2.MaxExponent + 1);
+
+            if (coeffPolynomial1.Length > coeffPolynomial2.Length)
             {
-                resultCoefficients = new double[polynomial1.MaxExponent + 1];
-                Array.Copy(polynomial1._coefficients, resultCoefficients, polynomial1.MaxExponent + 1);
-                minMaxExponent = polynomial2.MaxExponent + 1;
+                resultCoefficients = new double[coeffPolynomial1.Length];
+                Array.Copy(coeffPolynomial1, resultCoefficients, coeffPolynomial1.Length);
+                minMaxExponent = coeffPolynomial2.Length;
             }
             else
             {
-                resultCoefficients = new double[polynomial2.MaxExponent + 1];
-                Array.Copy(polynomial2._coefficients, resultCoefficients, polynomial2.MaxExponent + 1);
-                minMaxExponent = polynomial1.MaxExponent + 1;
+                resultCoefficients = new double[coeffPolynomial2.Length];
+                Array.Copy(coeffPolynomial2, resultCoefficients, coeffPolynomial2.Length);
+                minMaxExponent = coeffPolynomial1.Length;
             }
 
             for (int i = 0; i < minMaxExponent; i++)
             {
-                resultCoefficients[i] = polynomial1._coefficients[i] + polynomial2._coefficients[i];
+                resultCoefficients[i] = coeffPolynomial1[i] + coeffPolynomial2[i];
             }
 
             return new Polynomial(resultCoefficients);
@@ -104,40 +106,40 @@ namespace AlgebraicExpression
         /// and <paramref name="polynomial2"/>.</returns>
         public static Polynomial operator -(Polynomial polynomial1, Polynomial polynomial2)
         {
-            if (ReferenceEquals(polynomial1, null) & ReferenceEquals(polynomial2, null))
-            {
-                return new Polynomial(new[] { 0d });
-            }
-
             if (ReferenceEquals(polynomial1, null))
             {
-                return polynomial2;
+                throw new ArgumentNullException(nameof(polynomial1));
             }
 
             if (ReferenceEquals(polynomial2, null))
             {
-                return polynomial1;
+                throw new ArgumentNullException(nameof(polynomial2));
             }
 
             double[] resultCoefficients = null;
+            double[] coeffPolynomial1 = new double[polynomial1.MaxExponent + 1];
+            double[] coeffPolynomial2 = new double[polynomial2.MaxExponent + 1];
             int minMaxExponent = 0;
 
-            if (polynomial1.MaxExponent > polynomial2.MaxExponent)
+            Array.Copy(polynomial1._coefficients, coeffPolynomial1, polynomial1.MaxExponent + 1);
+            Array.Copy(polynomial2._coefficients, coeffPolynomial2, polynomial2.MaxExponent + 1);
+
+            if (coeffPolynomial1.Length > coeffPolynomial2.Length)
             {
-                resultCoefficients = new double[polynomial1.MaxExponent + 1];
-                Array.Copy(polynomial1._coefficients, resultCoefficients, polynomial1.MaxExponent + 1);
-                minMaxExponent = polynomial2.MaxExponent + 1;
+                resultCoefficients = new double[coeffPolynomial1.Length];
+                Array.Copy(coeffPolynomial1, resultCoefficients, coeffPolynomial1.Length);
+                minMaxExponent = coeffPolynomial2.Length;
             }
             else
             {
-                resultCoefficients = new double[polynomial2.MaxExponent + 1];
-                Array.Copy(polynomial2._coefficients, resultCoefficients, polynomial2.MaxExponent + 1);
-                minMaxExponent = polynomial1.MaxExponent + 1;
+                resultCoefficients = new double[coeffPolynomial2.Length];
+                Array.Copy(coeffPolynomial2, resultCoefficients, coeffPolynomial2.Length);
+                minMaxExponent = coeffPolynomial1.Length;
             }
 
             for (int i = 0; i < minMaxExponent; i++)
             {
-                resultCoefficients[i] = polynomial1._coefficients[i] - polynomial2._coefficients[i];
+                resultCoefficients[i] = coeffPolynomial1[i] - coeffPolynomial2[i];
             }
 
             return new Polynomial(resultCoefficients);
@@ -156,18 +158,29 @@ namespace AlgebraicExpression
         /// to <paramref name="polynomial2"/>.</returns>
         public static Polynomial operator *(Polynomial polynomial1, Polynomial polynomial2)
         {
-            if (ReferenceEquals(polynomial1, null) | ReferenceEquals(polynomial2, null))
+            if (ReferenceEquals(polynomial1, null))
             {
-                return new Polynomial(new[] { 0d });
+                throw new ArgumentNullException(nameof(polynomial1));
             }
 
-            double[] resultCoefficients = new double[polynomial1.MaxExponent + polynomial2.MaxExponent + 1];
-
-            for (int i = 0; i < polynomial1.MaxExponent + 1; i++)
+            if (ReferenceEquals(polynomial2, null))
             {
-                for (int j = 0; j < polynomial2.MaxExponent + 1; j++)
+                throw new ArgumentNullException(nameof(polynomial2));
+            }
+
+            double[] coeffPolynomial1 = new double[polynomial1.MaxExponent + 1];
+            double[] coeffPolynomial2 = new double[polynomial2.MaxExponent + 1];
+
+            Array.Copy(polynomial1._coefficients, coeffPolynomial1, polynomial1.MaxExponent + 1);
+            Array.Copy(polynomial2._coefficients, coeffPolynomial2, polynomial2.MaxExponent + 1);
+
+            double[] resultCoefficients = new double[coeffPolynomial1.Length + coeffPolynomial2.Length - 1];
+
+            for (int i = 0; i < coeffPolynomial1.Length; i++)
+            {
+                for (int j = 0; j < coeffPolynomial2.Length; j++)
                 {
-                    resultCoefficients[i + j] += polynomial1._coefficients[i] * polynomial2._coefficients[j];
+                    resultCoefficients[i + j] += coeffPolynomial1[i] * coeffPolynomial2[j];
                 }
             }
 
@@ -201,10 +214,15 @@ namespace AlgebraicExpression
                 return false;
             }
 
-            int digits = 5;
-            for (int i = 0; i < polynomial1.MaxExponent + 1; i++)
+            double[] coeffPolynomial1 = new double[polynomial1.MaxExponent + 1];
+            double[] coeffPolynomial2 = new double[polynomial2.MaxExponent + 1];
+
+            Array.Copy(polynomial1._coefficients, coeffPolynomial1, polynomial1.MaxExponent + 1);
+            Array.Copy(polynomial2._coefficients, coeffPolynomial2, polynomial2.MaxExponent + 1);
+
+            for (int i = 0; i < coeffPolynomial1.Length; i++)
             {
-                if (Math.Round(polynomial1._coefficients[i], digits) != Math.Round(polynomial2._coefficients[i], digits))
+                if (Math.Abs(coeffPolynomial1[i] - coeffPolynomial2[i]) > DefaultAccuracy)
                 {
                     return false;
                 }
@@ -240,10 +258,15 @@ namespace AlgebraicExpression
                 return true;
             }
 
-            int digits = 5;
+            double[] coeffPolynomial1 = new double[polynomial1.MaxExponent + 1];
+            double[] coeffPolynomial2 = new double[polynomial2.MaxExponent + 1];
+
+            Array.Copy(polynomial1._coefficients, coeffPolynomial1, polynomial1.MaxExponent + 1);
+            Array.Copy(polynomial2._coefficients, coeffPolynomial2, polynomial2.MaxExponent + 1);
+
             for (int i = 0; i < polynomial1.MaxExponent + 1; i++)
             {
-                if (Math.Round(polynomial1._coefficients[i], digits) != Math.Round(polynomial2._coefficients[i], digits))
+                if (Math.Abs(coeffPolynomial1[i] - coeffPolynomial2[i]) > DefaultAccuracy)
                 {
                     return true;
                 }

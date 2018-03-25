@@ -7,262 +7,208 @@ namespace Algorithm
     /// </summary>
     public class BubbleSort
     {
-        #region Public bubble sort methods
+        #region Public methods of bubble sort by maximum row element
 
         /// <summary>
         /// This method sorts <paramref name="sourceArray"/> by bubble sort where
-        /// elements compares by <paramref name="comparator"/>.
+        /// elements compares by maximum row element in ascending order.
         /// </summary>
         /// <param name="sourceArray">A source array for sort.</param>
-        /// <param name="comparator">A method of elements comparison.</param>
-        public static void Sort(int[][] sourceArray, Comparison<int[]> comparator)
+        public static void SortByMaxElementAscending(int[][] sourceArray)
         {
             if (sourceArray == null)
             {
                 throw new ArgumentNullException(nameof(sourceArray));
             }
 
-            if (comparator == null)
-            {
-                throw new ArgumentNullException(nameof(comparator));
-            }
+            int[][] array = new int[sourceArray.Length][];
 
-            for (int i = 1; i < sourceArray.Length; i++)
+            Array.Copy(sourceArray, array, sourceArray.Length);
+
+            for (int i = 1; i < array.Length; i++)
             {
-                for (int j = 0; j < sourceArray.Length - i; j++)
+                for (int j = 0; j < array.Length - i; j++)
                 {
-                    if (comparator(sourceArray[j], sourceArray[j + 1]) > 0)
+                    if (Comparator.CompareByMaxRowElementsAscending(array[j], array[j + 1]) > 0)
                     {
-                        var temp = sourceArray[j];
-                        sourceArray[j] = sourceArray[j + 1];
-                        sourceArray[j + 1] = temp;
+                        var temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
                     }
                 }
             }
-        }
 
-        #endregion
-
-        #region Public methods of compare by minimum row element
-
-        /// <summary>
-        /// This method provides comparator to compare <paramref name="firstRow"/>
-        /// and <paramref name="secondRow"/> by minimum row element in ascending order.
-        /// </summary>
-        /// <param name="firstRow">A first row to compare.</param>
-        /// <param name="secondRow">A second row to compare.</param>
-        /// <returns>0 if minimum element of <paramref name="firstRow"/> less or equal 
-        /// than <paramref name="secondRow"/>, otherwise 1.</returns>
-        public static int CompareByMinRowElementsAscending(int[] firstRow, int[] secondRow)
-        {
-            int firstMinElement = int.MaxValue, secondMinElement = int.MaxValue;
-            for (int i = 0; i < firstRow.Length; i++)
-            {
-                if (firstRow[i] < firstMinElement)
-                {
-                    firstMinElement = firstRow[i];
-                }
-            }
-
-            for (int i = 0; i < secondRow.Length; i++)
-            {
-                if (secondRow[i] < secondMinElement)
-                {
-                    secondMinElement = secondRow[i];
-                }
-            }
-
-            if (firstMinElement > secondMinElement)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            Array.Copy(array, sourceArray, array.Length);
         }
 
         /// <summary>
-        /// This method provides comparator to compare <paramref name="firstRow"/>
-        /// and <paramref name="secondRow"/> by minimum row element in descending order.
+        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
+        /// elements compares by maximum row element in descending order.
         /// </summary>
-        /// <param name="firstRow">A first row to compare.</param>
-        /// <param name="secondRow">A second row to compare.</param>
-        /// <returns>0 if minimum element of <paramref name="secondRow"/> less or equal 
-        /// than <paramref name="firstRow"/>, otherwise 1.</returns>
-        public static int CompareByMinRowElementsDescending(int[] firstRow, int[] secondRow)
+        /// <param name="sourceArray">A source array for sort.</param>
+        public static void SortByMaxElementDescending(int[][] sourceArray)
         {
-            int firstMinElement = int.MaxValue, secondMinElement = int.MaxValue;
-            for (int i = 0; i < firstRow.Length; i++)
+            if (sourceArray == null)
             {
-                if (firstRow[i] < firstMinElement)
+                throw new ArgumentNullException(nameof(sourceArray));
+            }
+
+            int[][] array = new int[sourceArray.Length][];
+
+            Array.Copy(sourceArray, array, sourceArray.Length);
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length - i; j++)
                 {
-                    firstMinElement = firstRow[i];
+                    if (Comparator.CompareByMaxRowElementsDescending(array[j], array[j + 1]) > 0)
+                    {
+                        var temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
                 }
             }
 
-            for (int i = 0; i < secondRow.Length; i++)
-            {
-                if (secondRow[i] < secondMinElement)
-                {
-                    secondMinElement = secondRow[i];
-                }
-            }
-
-            if (firstMinElement < secondMinElement)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            Array.Copy(array, sourceArray, array.Length);
         }
 
-        #endregion !Public methods of compare by minimum row element
+        #endregion !Public methods of bubble sort by maximum row element
 
-        #region Public methods of compare by maximum row element
+        #region Public methods of bubble sort by minimum row element
 
         /// <summary>
-        /// This method provides comparator to compare <paramref name="firstRow"/>
-        /// and <paramref name="secondRow"/> by maximum row element in ascending order.
+        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
+        /// elements compares by minimum row element in ascending order.
         /// </summary>
-        /// <param name="firstRow">A first row to compare.</param>
-        /// <param name="secondRow">A second row to compare.</param>
-        /// <returns>0 if maximum element of <paramref name="firstRow"/> less or equal 
-        /// than <paramref name="secondRow"/>, otherwise 1.</returns>
-        public static int CompareByMaxRowElementsAscending(int[] firstRow, int[] secondRow)
+        /// <param name="sourceArray">A source array for sort.</param>
+        public static void SortByMinElementAscending(int[][] sourceArray)
         {
-            int firstMaxElement = 0, secondMaxElement = 0;
-            for (int i = 0; i < firstRow.Length; i++)
+            if (sourceArray == null)
             {
-                if (firstRow[i] > firstMaxElement)
+                throw new ArgumentNullException(nameof(sourceArray));
+            }
+
+            int[][] array = new int[sourceArray.Length][];
+
+            Array.Copy(sourceArray, array, sourceArray.Length);
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length - i; j++)
                 {
-                    firstMaxElement = firstRow[i];
+                    if (Comparator.CompareByMinRowElementsAscending(array[j], array[j + 1]) > 0)
+                    {
+                        var temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
                 }
             }
 
-            for (int i = 0; i < secondRow.Length; i++)
-            {
-                if (secondRow[i] > secondMaxElement)
-                {
-                    secondMaxElement = secondRow[i];
-                }
-            }
-
-            if (firstMaxElement > secondMaxElement)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            Array.Copy(array, sourceArray, array.Length);
         }
 
         /// <summary>
-        /// This method provides comparator to compare <paramref name="firstRow"/>
-        /// and <paramref name="secondRow"/> by maximum row element in descending order.
+        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
+        /// elements compares by minimum row element in descending order.
         /// </summary>
-        /// <param name="firstRow">A first row to compare.</param>
-        /// <param name="secondRow">A second row to compare.</param>
-        /// <returns>0 if maximum element of <paramref name="secondRow"/> less or equal 
-        /// than <paramref name="firstRow"/>, otherwise 1.</returns>
-        public static int CompareByMaxRowElementsDescending(int[] firstRow, int[] secondRow)
+        /// <param name="sourceArray">A source array for sort.</param>
+        public static void SortByMinElementDescending(int[][] sourceArray)
         {
-            int firstMaxElement = 0, secondMaxElement = 0;
-            for (int i = 0; i < firstRow.Length; i++)
+            if (sourceArray == null)
             {
-                if (firstRow[i] > firstMaxElement)
+                throw new ArgumentNullException(nameof(sourceArray));
+            }
+
+            int[][] array = new int[sourceArray.Length][];
+
+            Array.Copy(sourceArray, array, sourceArray.Length);
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length - i; j++)
                 {
-                    firstMaxElement = firstRow[i];
+                    if (Comparator.CompareByMinRowElementsDescending(array[j], array[j + 1]) > 0)
+                    {
+                        var temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
                 }
             }
 
-            for (int i = 0; i < secondRow.Length; i++)
+            Array.Copy(array, sourceArray, array.Length);
+        }
+
+        #endregion !Public methods of bubble sort by minimum row element
+
+        #region Public methods of bubble sort by maximum row elements sum
+
+        /// <summary>
+        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
+        /// elements compares by maximum row elements sum in ascending order.
+        /// </summary>
+        /// <param name="sourceArray">A source array for sort.</param>
+        public static void SortByMaxRowElementsSumAscending(int[][] sourceArray)
+        {
+            if (sourceArray == null)
             {
-                if (secondRow[i] > secondMaxElement)
+                throw new ArgumentNullException(nameof(sourceArray));
+            }
+
+            int[][] array = new int[sourceArray.Length][];
+
+            Array.Copy(sourceArray, array, sourceArray.Length);
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length - i; j++)
                 {
-                    secondMaxElement = secondRow[i];
+                    if (Comparator.CompareByRowElementsSumAscending(array[j], array[j + 1]) > 0)
+                    {
+                        var temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
                 }
             }
 
-            if (firstMaxElement < secondMaxElement)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        #endregion !Public methods of compare by maximum row element
-
-        #region Public methods of compare by maximum row elements sum
-
-        /// <summary>
-        /// This method provides comparator to compare <paramref name="firstRow"/>
-        /// and <paramref name="secondRow"/> by maximum row elements sum in ascending order.
-        /// </summary>
-        /// <param name="firstRow">A first row to compare.</param>
-        /// <param name="secondRow">A second row to compare.</param>
-        /// <returns>0 if maximum elements sum of <paramref name="firstRow"/> less or equal 
-        /// than <paramref name="secondRow"/>, otherwise 1.</returns>
-        public static int CompareByRowElementsSumAscending(int[] firstRow, int[] secondRow)
-        {
-            int firstSum = 0, secondSum = 0;
-            for (int i = 0; i < firstRow.Length; i++)
-            {
-                firstSum += firstRow[i];
-            }
-
-            for (int i = 0; i < secondRow.Length; i++)
-            {
-                secondSum += secondRow[i];
-            }
-
-            if (firstSum > secondSum)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            Array.Copy(array, sourceArray, array.Length);
         }
 
         /// <summary>
-        /// This method provides comparator to compare <paramref name="firstRow"/>
-        /// and <paramref name="secondRow"/> by maximum row elements sum in descending order.
+        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
+        /// elements compares by maximum row elements sum in descending order.
         /// </summary>
-        /// <param name="firstRow">A first row to compare.</param>
-        /// <param name="secondRow">A second row to compare.</param>
-        /// <returns>0 if maximum elements sum of <paramref name="secondRow"/> less or equal 
-        /// than <paramref name="firstRow"/>, otherwise 1.</returns>
-        public static int CompareByRowElementsSumDescending(int[] firstRow, int[] secondRow)
+        /// <param name="sourceArray">A source array for sort.</param>
+        public static void SortByMaxRowElementsSumDescending(int[][] sourceArray)
         {
-            int firstSum = 0, secondSum = 0;
-            for (int i = 0; i < firstRow.Length; i++)
+            if (sourceArray == null)
             {
-                firstSum += firstRow[i];
+                throw new ArgumentNullException(nameof(sourceArray));
             }
 
-            for (int i = 0; i < secondRow.Length; i++)
+            int[][] array = new int[sourceArray.Length][];
+
+            Array.Copy(sourceArray, array, sourceArray.Length);
+
+            for (int i = 1; i < array.Length; i++)
             {
-                secondSum += secondRow[i];
+                for (int j = 0; j < array.Length - i; j++)
+                {
+                    if (Comparator.CompareByRowElementsSumDescending(array[j], array[j + 1]) > 0)
+                    {
+                        var temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+                }
             }
 
-            if (firstSum < secondSum)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            Array.Copy(array, sourceArray, array.Length);
         }
 
-        #endregion !Public methods of compare by maximum row element sum
+        #endregion !Public methods of bubble sort by maximum row elements sum
     }
 }
