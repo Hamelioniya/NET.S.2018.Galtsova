@@ -201,6 +201,9 @@ namespace BookStore
         /// <summary>
         /// Returns a string representation of the <see cref="Book"/> object.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when a current <see cref="Book"/> object equal to null.
+        /// </exception>
         /// <returns>A string representation of the <see cref="Book"/> object.</returns>
         public override string ToString()
         {
@@ -234,6 +237,9 @@ namespace BookStore
         /// Compares the current book and the <paramref name="other"/> book by ISBN.
         /// </summary>
         /// <param name="other">An other book.</param>
+        /// <exception cref="ArgumentException">
+        /// Thrown when a current <see cref="Book"/> object and an <paramref name="other"/> one have not equal types.
+        /// </exception>
         /// <returns>Greater than 0, if the current book is larger, 0 if equal, -1 if less.</returns>
         public int CompareTo(object other)
         {

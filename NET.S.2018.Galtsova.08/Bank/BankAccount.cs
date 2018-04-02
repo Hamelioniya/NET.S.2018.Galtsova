@@ -61,7 +61,7 @@ namespace Bank
         #region Public properties
 
         /// <summary>
-        /// ID
+        /// ID.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when value less than of equal to 0.
@@ -240,6 +240,9 @@ namespace Bank
         /// Refills a current bank account by <paramref name="amount"/>.
         /// </summary>
         /// <param name="amount">An amount.</param>
+        /// <exception cref="InsufficientFundsException">
+        /// Thrown when insufficient founds to refill by <paramref name="amount"/> in the bank account.
+        /// </exception>
         public void RefillAmount(decimal amount)
         {
             if (Amount < amount)
@@ -298,6 +301,9 @@ namespace Bank
         /// <summary>
         /// Returns a string representation of the <see cref="Book"/> object.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when a current <see cref="Book"/> object equal to null.
+        /// </exception>
         /// <returns>A string representation of the <see cref="Book"/> object.</returns>
         public override string ToString()
         {

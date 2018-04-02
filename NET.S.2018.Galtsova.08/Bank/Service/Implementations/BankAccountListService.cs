@@ -29,11 +29,19 @@ namespace Bank
         /// </summary>
         /// <param name="bankAccountStorage">An instance of a bank account service interface.</param>
         /// <param name="bonusCounter">An instance of a bonus counter interface.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="bankAccountStorage"/> or/and <paramref name="bonusCounter"/> equal to null.
+        /// </exception>
         public BankAccountListService(IBankAccountListStorage bankAccountStorage, IBonusCounter bonusCounter)
         {
             if (ReferenceEquals(bankAccountStorage, null))
             {
                 throw new ArgumentNullException(nameof(bankAccountStorage));
+            }
+
+            if (ReferenceEquals(bonusCounter, null))
+            {
+                throw new ArgumentNullException(nameof(bonusCounter));
             }
 
             _bankAccountListStorage = bankAccountStorage;
@@ -60,6 +68,9 @@ namespace Bank
         /// <summary>
         /// List of bank accounts
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when value equal to null.
+        /// </exception>
         private List<BankAccount> BankAccounts
         {
             get
@@ -86,6 +97,12 @@ namespace Bank
         /// Adds a <paramref name="bankAccount"/> to the list of bank accounts.
         /// </summary>
         /// <param name="bankAccount">A bank account.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="bankAccount"/> equal to null.
+        /// </exception>
+        /// <exception cref="BankAccountAlreadyExistsException">
+        /// Thrown when <paramref name="bankAccount"/> already exists in the list of bank accounts.
+        /// </exception>
         public void AddBankAccount(BankAccount bankAccount)
         {
             if (ReferenceEquals(bankAccount, null))
@@ -113,6 +130,15 @@ namespace Bank
         /// </summary>
         /// <param name="bankAccount">A bank account.</param>
         /// <param name="amount">An amount.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="bankAccount"/> equal to null.
+        /// </exception>
+        /// <exception cref="BankAccountNotFoundException">
+        /// Thrown when <paramref name="bankAccount"/> not found in the list of bank accounts.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="amount"/> less than or equal to 0.
+        /// </exception>
         public void Refill(BankAccount bankAccount, decimal amount)
         {
             if (ReferenceEquals(bankAccount, null))
@@ -143,6 +169,12 @@ namespace Bank
         /// Removes a <paramref name="bankAccount"/> from the list of bank accounts.
         /// </summary>
         /// <param name="bankAccount">A bank account.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="bankAccount"/> equal to null.
+        /// </exception>
+        /// <exception cref="BankAccountNotFoundException">
+        /// Thrown when <paramref name="bankAccount"/> not found in the list of bank accounts.
+        /// </exception>
         public void RemoveBankAccount(BankAccount bankAccount)
         {
             if (ReferenceEquals(bankAccount, null))
@@ -165,6 +197,15 @@ namespace Bank
         /// </summary>
         /// <param name="bankAccount">A bank account.</param>
         /// <param name="amount">An amount.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="bankAccount"/> equal to null.
+        /// </exception>
+        /// <exception cref="BankAccountNotFoundException">
+        /// Thrown when <paramref name="bankAccount"/> not found in the list of bank accounts.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="amount"/> less than or equal to 0.
+        /// </exception>
         public void Withdrawal(BankAccount bankAccount, decimal amount)
         {
             if (ReferenceEquals(bankAccount, null))

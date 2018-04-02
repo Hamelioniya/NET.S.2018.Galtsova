@@ -100,7 +100,8 @@ namespace BookStore
         /// Thrown when <paramref name="book"/> equal to null.
         /// </exception>
         /// <exception cref="BookAlreadyExistsException">
-        /// Thrown when <paramref name="book"/> already exists in the list of books.
+        /// Thrown when <paramref name="book"/> or/and book with ISBN like ISBN of <paramref name="book"/>
+        /// already exists in the list of books.
         /// </exception>
         public void AddBook(Book book)
         {
