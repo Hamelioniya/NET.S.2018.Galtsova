@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace BookStore
 {
@@ -24,6 +25,9 @@ namespace BookStore
             }
 
             ISBN = isbn;
+            Author = string.Empty;
+            Name = string.Empty;
+            PublishingHouse = string.Empty;
         }
 
         /// <summary>
@@ -128,7 +132,7 @@ namespace BookStore
         #region Equals public methods
 
         /// <summary>
-        /// Checks equality of the <paramref name="firstBook"/> book and the <paramref name="secondBook"/> book.
+        /// Checks equality of the <paramref name="firstBook"/> and the <paramref name="secondBook"/>.
         /// </summary>
         /// <param name="firstBook">A first book.</param>
         /// <param name="secondBook">A second book.</param>
@@ -139,7 +143,7 @@ namespace BookStore
         }
 
         /// <summary>
-        /// Checks inequality of the <paramref name="firstBook"/> book and the <paramref name="secondBook"/> book.
+        /// Checks inequality of the <paramref name="firstBook"/> and the <paramref name="secondBook"/>.
         /// </summary>
         /// <param name="firstBook">A first book.</param>
         /// <param name="secondBook">A second book.</param>
@@ -157,11 +161,6 @@ namespace BookStore
         public bool Equals(Book other)
         {
             if (ReferenceEquals(other, null))
-            {
-                return false;
-            }
-
-            if (this.ISBN != other.ISBN)
             {
                 return false;
             }
@@ -211,7 +210,7 @@ namespace BookStore
             }
 
             return "IBSN: " + ISBN.ToString() + "\nName: "+ Name + "\nAuthor: " + Author + "\nPublishing house: " + PublishingHouse +
-                "\nPublishing year: " + PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString() + "\nPrice: " + Price.ToString("C");
+                "\nPublishing year: " + PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString() + "\nPrice: " + Price.ToString("C", CultureInfo.CurrentCulture);
         }
 
         #endregion !ToString pubic method.

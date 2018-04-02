@@ -19,7 +19,7 @@ namespace BookStore
         #region Public constructors
 
         /// <summary>
-        /// Initializes an instance of the <see cref="Book"/> with the passed book list storage.
+        /// Initializes an instance of the <see cref="BookListService"/> with the passed book list storage.
         /// </summary>
         /// <param name="bookListStorage">An instance of an interface.</param>
         /// <exception cref="ArgumentNullException">
@@ -37,7 +37,7 @@ namespace BookStore
         }
 
         /// <summary>
-        /// Initializes an instance of the <see cref="Book"/> with passed book list storage and list of books.
+        /// Initializes an instance of the <see cref="BookListService"/> with passed book list storage and list of books.
         /// </summary>
         /// <param name="books">A list of books.</param>
         /// <param name="bookListStorage">An instance of an interface.</param>
@@ -70,7 +70,7 @@ namespace BookStore
         /// <exception cref="ArgumentNullException">
         /// Thrown when <paramref name="cref"/> equal to null.
         /// </exception>
-        public List<Book> Books
+        private List<Book> Books
         {
             get
             {
@@ -112,6 +112,11 @@ namespace BookStore
             if (Books.Contains(book))
             {
                 throw new BookAlreadyExistsException("This book already exists.");
+            }
+
+            if(!ReferenceEquals(Books.Find(x => x.ISBN == book.ISBN), null))
+            {
+                throw new BookAlreadyExistsException("Book with such ISBN already exists.");
             }
 
             Books.Add(book);

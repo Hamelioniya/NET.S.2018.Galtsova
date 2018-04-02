@@ -125,7 +125,7 @@ namespace BookStore
         /// <param name="books">A list of books.</param>
         private static void WriteBinaryFile(string filePath, List<Book> books)
         {
-            using (BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.OpenOrCreate)))
+            using (BinaryWriter writer = new BinaryWriter(File.Open(filePath, FileMode.Create)))
             {
                 foreach (Book book in books)
                 {
