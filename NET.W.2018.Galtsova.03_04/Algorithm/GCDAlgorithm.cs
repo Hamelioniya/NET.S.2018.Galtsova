@@ -8,6 +8,12 @@ namespace Algorithm
     /// </summary>
     public static class GCDAlgorithm
     {
+        #region Private fields
+
+        private delegate int _algorithmDelrgate(params int[] numbers);
+
+        #endregion !Private fields.
+
         #region Public methods of Euclidean algorithm
 
         /// <summary>
@@ -43,26 +49,14 @@ namespace Algorithm
         }
 
         /// <summary>
-        /// This method calculates the time of <see cref="Algorithm.GCDAlgorithm.GetEuclidGCD(int[])">GetSteinGCD</see> work.
+        /// This method calculates the time of <see cref="Algorithm.GCDAlgorithm.GetEuclidGCD(int[])">GetEuclideanGCD</see> work.
         /// </summary>
         /// <param name="numbers">Array of numbers.</param>
-        /// <returns>Calculated time of work.</returns>
-        public static string GetTimeOfEuclidGCDFind(params int[] numbers)
-        {
-            Stopwatch stopWatch = new Stopwatch();
+        /// <returns>Calculated time of algorithm work.</returns>
+        public static string GetTimeOfEuclideanGCDFind(params int[] numbers) => GetTimeOfAlgorithmWork(GetEuclidGCD, numbers);
 
-            stopWatch.Start();
-            GetEuclidGCD(numbers);
-            stopWatch.Stop();
+        #endregion !Public methods of Euclidean algorithm.
 
-            long milliSec = stopWatch.ElapsedMilliseconds;
-
-            string elapsedTime = string.Format("{0} numbers length: {1} milliseconds", numbers.Length, milliSec);
-            return elapsedTime;
-        }
-
-        #endregion
-        
         #region Public methods of Shtein algorithm
 
         /// <summary>
@@ -89,21 +83,9 @@ namespace Algorithm
         /// </summary>
         /// <param name="numbers">Array of numbers.</param>
         /// <returns>Calculated time of algorithm work.</returns>
-        public static string GetTimeOfSteinGCDFind(params int[] numbers)
-        {
-            Stopwatch stopWatch = new Stopwatch();
+        public static string GetTimeOfSteinGCDFind(params int[] numbers) => GetTimeOfAlgorithmWork(GetSteinGCD, numbers);
 
-            stopWatch.Start();
-            GetSteinGCD(numbers);
-            stopWatch.Stop();
-
-            long milliSec = stopWatch.ElapsedMilliseconds;
-
-            string elapsedTime = string.Format("{0} numbers length: {1} milliseconds", numbers.Length, milliSec);
-            return elapsedTime;
-        }
-
-        #endregion
+        #endregion !Public methods of Shtein algorithm.
 
         #region Private methods of Shtein algorithm
 
@@ -155,7 +137,7 @@ namespace Algorithm
             return GetSteinGCD((number2 - number1) >> 1, number1);
         }
 
-        #endregion
+        #endregion !Private methods of Shtein algorithm.
 
         #region Private methods
 
@@ -182,6 +164,37 @@ namespace Algorithm
             }
         }
 
-        #endregion
+        /// <summary>
+        /// This method calculates the time of methods work.
+        /// </summary>
+        /// <param name="numbers">Array of numbers.</param>
+        /// <param name="algorithm">Delegated method.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="algorithm"/> equal to null.
+        /// </exception>
+        /// <returns>Calculated time of algorithm work.</returns>
+        private static string GetTimeOfAlgorithmWork(_algorithmDelrgate algorithm, params int[] numbers)
+        {
+            if (ReferenceEquals(algorithm, null))
+            {
+                throw new ArgumentNullException(nameof(algorithm));
+            }
+
+            Stopwatch stopWatch = new Stopwatch();
+
+            stopWatch.Start();
+
+            algorithm(numbers);
+
+            stopWatch.Stop();
+
+            long milliSec = stopWatch.ElapsedMilliseconds;
+
+            string elapsedTime = string.Format("{0} numbers length: {1} milliseconds", numbers.Length, milliSec);
+
+            return elapsedTime;
+        }
+
+        #endregion !Private methods.
     }
 }
