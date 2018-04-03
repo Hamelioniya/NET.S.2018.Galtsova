@@ -4,20 +4,10 @@ using System.Collections.Generic;
 namespace Algorithm
 {
     /// <summary>
-    /// Provides bubble sort methods for jagged array(use delegates).
+    /// Provides bubble sort methods for jagged array.
     /// </summary>
-    public class BubbleSortDelegate
+    public class BubbleSortInterface
     {
-        #region Public methods
-
-        /// <summary>
-        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
-        /// elements compares by <paramref name="comparator"/>.
-        /// </summary>
-        /// <param name="sourceArray">A source array for sort.</param>
-        /// <param name="comparator">A method of elements comparison.</param>
-        public static void Sort(int[][] sourceArray, IComparer<int[]> comparator) => Sort(sourceArray, comparator.Compare);
-
         /// <summary>
         /// This method sorts <paramref name="sourceArray"/> by bubble sort where
         /// elements compares by <paramref name="comparator"/>.
@@ -27,14 +17,14 @@ namespace Algorithm
         /// <exception cref="ArgumentNullException">
         /// Thrown when <paramref name="sourceArray"/> or/and <paramref name="comparator"/> equal to null.
         /// </exception>
-        public static void Sort(int[][] sourceArray, Comparison<int[]> comparator)
+        public static void Sort(int[][] sourceArray, IComparer<int[]> comparator)
         {
-            if (sourceArray == null)
+            if (ReferenceEquals(sourceArray, null))
             {
                 throw new ArgumentNullException(nameof(sourceArray));
             }
 
-            if (comparator == null)
+            if (ReferenceEquals(comparator, null))
             {
                 throw new ArgumentNullException(nameof(comparator));
             }
@@ -47,7 +37,7 @@ namespace Algorithm
             {
                 for (int j = 0; j < array.Length - i; j++)
                 {
-                    if (comparator(array[j], array[j + 1]) > 0)
+                    if (comparator.Compare(array[j], array[j + 1]) > 0)
                     {
                         var temp = array[j];
                         array[j] = array[j + 1];
@@ -59,6 +49,12 @@ namespace Algorithm
             Array.Copy(array, sourceArray, array.Length);
         }
 
-        #endregion !Public methods.
+        /// <summary>
+        /// This method sorts <paramref name="sourceArray"/> by bubble sort where
+        /// elements compares by <paramref name="comparator"/>.
+        /// </summary>
+        /// <param name="sourceArray">A source array for sort.</param>
+        /// <param name="comparator">A method of elements comparison.</param>
+        public static void Sort(int[][] sourceArray, Comparison<int[]> comparator) => Sort(sourceArray, new DelegateAdapter(comparator));
     }
 }

@@ -6,26 +6,26 @@ using NUnit.Framework;
 namespace Algorithm.Tests
 {
     [TestFixture]
-    public class ComparatorTests
+    public class BubbleSortInterfaceTests
     {
         [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCasesDelegate))]
         public int[][] Sort_SortesArrayUsingDelegateTests(int[][] sourceArray, Comparison<int[]> comparator)
         {
-            BubbleSortDelegate.Sort(sourceArray, comparator);
+            BubbleSortInterface.Sort(sourceArray, comparator);
             return sourceArray;
         }
 
         [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCasesInterface))]
         public int[][] Sort_SortesArrayUsingInterfaceTests(int[][] sourceArray, IComparer<int[]> comparator)
         {
-            BubbleSortDelegate.Sort(sourceArray, comparator);
+            BubbleSortInterface.Sort(sourceArray, comparator);
             return sourceArray;
         }
 
         [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCasesException))]
-        public void Sort_ArgumentNullExceptionTests(int[][] sourceArray, Comparison<int[]> comparator)
+        public void Sort_ArgumentNullExceptionTests(int[][] sourceArray, IComparer<int[]> comparator)
         {
-            Assert.Throws<ArgumentNullException>(() => BubbleSortDelegate.Sort(sourceArray, comparator));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortInterface.Sort(sourceArray, comparator));
         }
 
         private class TestCasesClass
@@ -106,7 +106,7 @@ namespace Algorithm.Tests
             {
                 get
                 {
-                    yield return new TestCaseData(null, (Comparison<int[]>)Comparator.CompareByRowElementsSumAscending);
+                    yield return new TestCaseData(null, new ComparatorByMinElemAscending());
 
                     yield return new TestCaseData(new[] { new[] { 4, 3, 2, 1, 5 }, new[] { 1, 2, 3, 4 }, new[] { 16 } }, null);
 

@@ -49,7 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BubbleSortDelegateTests.cs" />
-    <Compile Include="BubbleSortTests.cs" />
+    <Compile Include="BubbleSortInterfaceTests.cs" />
+    <Compile Include="Comparators\Comparator.cs" />
+    <Compile Include="Comparators\MaxSumOfElements\ComparatorByMaxSumAscending.cs" />
+    <Compile Include="Comparators\MaxSumOfElements\ComparatorByMaxSumDescending.cs" />
+    <Compile Include="Comparators\MinElement\ComparatorByMinElemDescending.cs" />
+    <Compile Include="Comparators\MaxElement\ComparatorByMaxElemDescending.cs" />
+    <Compile Include="Comparators\MaxElement\ComparatorByMaxElemAscending.cs" />
+    <Compile Include="Comparators\MinElement\ComparatorByMinElemAscending.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

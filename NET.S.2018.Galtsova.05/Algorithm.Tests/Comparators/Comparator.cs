@@ -24,20 +24,15 @@ namespace Algorithm
         public static int CompareByMinRowElementsAscending(int[] firstRow, int[] secondRow)
         {
             int firstMinElement = int.MaxValue, secondMinElement = int.MaxValue;
+
             for (int i = 0; i < firstRow.Length; i++)
             {
-                if (firstRow[i] < firstMinElement)
-                {
-                    firstMinElement = firstRow[i];
-                }
+                firstMinElement = Math.Min(firstMinElement, firstRow[i]);
             }
 
             for (int i = 0; i < secondRow.Length; i++)
             {
-                if (secondRow[i] < secondMinElement)
-                {
-                    secondMinElement = secondRow[i];
-                }
+                secondMinElement = Math.Min(secondMinElement, secondRow[i]);
             }
 
             if (firstMinElement > secondMinElement)
@@ -61,20 +56,15 @@ namespace Algorithm
         public static int CompareByMinRowElementsDescending(int[] firstRow, int[] secondRow)
         {
             int firstMinElement = int.MaxValue, secondMinElement = int.MaxValue;
+
             for (int i = 0; i < firstRow.Length; i++)
             {
-                if (firstRow[i] < firstMinElement)
-                {
-                    firstMinElement = firstRow[i];
-                }
+                firstMinElement = Math.Min(firstMinElement, firstRow[i]);
             }
 
             for (int i = 0; i < secondRow.Length; i++)
             {
-                if (secondRow[i] < secondMinElement)
-                {
-                    secondMinElement = secondRow[i];
-                }
+                secondMinElement = Math.Min(secondMinElement, secondRow[i]);
             }
 
             if (firstMinElement < secondMinElement)
@@ -102,20 +92,15 @@ namespace Algorithm
         public static int CompareByMaxRowElementsAscending(int[] firstRow, int[] secondRow)
         {
             int firstMaxElement = 0, secondMaxElement = 0;
+
             for (int i = 0; i < firstRow.Length; i++)
             {
-                if (firstRow[i] > firstMaxElement)
-                {
-                    firstMaxElement = firstRow[i];
-                }
+                firstMaxElement = Math.Max(firstMaxElement, firstRow[i]);
             }
 
             for (int i = 0; i < secondRow.Length; i++)
             {
-                if (secondRow[i] > secondMaxElement)
-                {
-                    secondMaxElement = secondRow[i];
-                }
+                secondMaxElement = Math.Max(secondMaxElement, secondRow[i]);
             }
 
             if (firstMaxElement > secondMaxElement)
@@ -139,20 +124,15 @@ namespace Algorithm
         public static int CompareByMaxRowElementsDescending(int[] firstRow, int[] secondRow)
         {
             int firstMaxElement = 0, secondMaxElement = 0;
+
             for (int i = 0; i < firstRow.Length; i++)
             {
-                if (firstRow[i] > firstMaxElement)
-                {
-                    firstMaxElement = firstRow[i];
-                }
+                firstMaxElement = Math.Max(firstMaxElement, firstRow[i]);
             }
 
             for (int i = 0; i < secondRow.Length; i++)
             {
-                if (secondRow[i] > secondMaxElement)
-                {
-                    secondMaxElement = secondRow[i];
-                }
+                secondMaxElement = Math.Max(secondMaxElement, secondRow[i]);
             }
 
             if (firstMaxElement < secondMaxElement)
@@ -180,15 +160,9 @@ namespace Algorithm
         public static int CompareByRowElementsSumAscending(int[] firstRow, int[] secondRow)
         {
             int firstSum = 0, secondSum = 0;
-            for (int i = 0; i < firstRow.Length; i++)
-            {
-                firstSum += firstRow[i];
-            }
 
-            for (int i = 0; i < secondRow.Length; i++)
-            {
-                secondSum += secondRow[i];
-            }
+            firstSum = firstRow.Sum();
+            secondSum = secondRow.Sum();
 
             if (firstSum > secondSum)
             {
@@ -211,15 +185,9 @@ namespace Algorithm
         public static int CompareByRowElementsSumDescending(int[] firstRow, int[] secondRow)
         {
             int firstSum = 0, secondSum = 0;
-            for (int i = 0; i < firstRow.Length; i++)
-            {
-                firstSum += firstRow[i];
-            }
 
-            for (int i = 0; i < secondRow.Length; i++)
-            {
-                secondSum += secondRow[i];
-            }
+            firstSum = firstRow.Sum();
+            secondSum = secondRow.Sum();
 
             if (firstSum < secondSum)
             {
