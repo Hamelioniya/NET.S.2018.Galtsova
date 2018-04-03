@@ -101,7 +101,7 @@ namespace BookStore
             {
                 while (reader.PeekChar() > -1)
                 {
-                    Book book = new Book(reader.ReadInt32())
+                    Book book = new Book(reader.ReadString())
                     {
                         Author = reader.ReadString(),
                         Name = reader.ReadString(),

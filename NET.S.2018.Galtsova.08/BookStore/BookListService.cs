@@ -115,7 +115,7 @@ namespace BookStore
                 throw new BookAlreadyExistsException("This book already exists.");
             }
 
-            if(!ReferenceEquals(Books.Find(x => x.ISBN == book.ISBN), null))
+            if (!ReferenceEquals(Books.Find(x => x.ISBN == book.ISBN), null))
             {
                 throw new BookAlreadyExistsException("Book with such ISBN already exists.");
             }
@@ -152,15 +152,23 @@ namespace BookStore
         /// Finds book by the <paramref name="isbn"/> in the list of books.
         /// </summary>
         /// <param name="isbn">An ISBN.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="isbn"/> less than 0.
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="isbn"/> equal to null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="isbn"/> equal to empty string.
         /// </exception>
         /// <returns>A found book.</returns>
-        public Book FindBookByISBN(int isbn)
+        public Book FindBookByISBN(string isbn)
         {
-            if (isbn < 0)
+            if (ReferenceEquals(isbn, null))
             {
-                throw new ArgumentOutOfRangeException("ISBN must be greater than 0.", nameof(isbn));
+                throw new ArgumentNullException(nameof(isbn));
+            }
+
+            if (isbn == string.Empty)
+            {
+                throw new ArgumentException("ISBN must not be equal to empty string.", nameof(isbn));
             }
 
             foreach (Book book in Books)
@@ -176,69 +184,13 @@ namespace BookStore
 
         #endregion !Public methods.
 
-        #region Sort public methods
-
-        /// <summary>
-        /// Sorts a list of books by the ISBN.
-        /// </summary>
-        public void SortByISBN()
-        {
-            Books.Sort(Comparator.CompareByISBN);
-        }
-
-        /// <summary>
-        /// Sorts a list of books by the author.
-        /// </summary>
-        public void SortByAuthor()
-        {
-            Books.Sort(Comparator.CompareByAuthor);
-        }
-
-        /// <summary>
-        /// Sorts a list of books by the name.
-        /// </summary>
-        public void SortByName()
-        {
-            Books.Sort(Comparator.CompareByName);
-        }
-
-        /// <summary>
-        /// Sorts a list of books by the publishing house.
-        /// </summary>
-        public void SortByPublishingHouse()
-        {
-            Books.Sort(Comparator.CompareByPublishingHouse);
-        }
-
-        /// <summary>
-        /// Sorts a list of books by the publishing year.
-        /// </summary>
-        public void SortByPublishingYear()
-        {
-            Books.Sort(Comparator.CompareByPublishingYear);
-        }
-
-        /// <summary>
-        /// Sorts a list of books by the number of pages.
-        /// </summary>
-        public void SortByNumOfPages()
-        {
-            Books.Sort(Comparator.CompareByNumOfPages);
-        }
-
-        /// <summary>
-        /// Sorts a list of books by the price.
-        /// </summary>
-        public void SortByPrice()
-        {
-            Books.Sort(Comparator.CompareByPrice);
-        }
+        #region Sort public method
 
         /// <summary>
         /// Sorts a list of books by <paramref name="comparator"/>.
         /// </summary>
         /// <param name="comparator">A comparator for sort.</param>
-        public void Sort(IComparer<Book> comparator)
+        public void SortByTag(IComparer<Book> comparator)
         {
             Books.Sort(comparator);
         }

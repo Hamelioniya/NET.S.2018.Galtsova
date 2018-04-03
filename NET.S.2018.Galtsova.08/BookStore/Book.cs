@@ -14,14 +14,22 @@ namespace BookStore
         /// Initializes an instance of the book with the passed ISBN.
         /// </summary>
         /// <param name="isbn">An ISBN.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="isbn"/> less than 0.
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="isbn"/> equal to null.
         /// </exception>
-        public Book(int isbn)
+        /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="isbn"/> equal to empty string.
+        /// </exception>
+        public Book(string isbn)
         {
-            if (isbn < 0)
+            if(ReferenceEquals(isbn, null))
             {
-                throw new ArgumentOutOfRangeException("ISBN must be greater than 0.", nameof(isbn));
+                throw new ArgumentNullException(nameof(isbn));
+            }
+
+            if (isbn == string.Empty)
+            {
+                throw new ArgumentException("ISBN must not be empty string.", nameof(isbn));
             }
 
             ISBN = isbn;
@@ -36,7 +44,7 @@ namespace BookStore
         /// <param name="isbn">An ISBN.</param>book ISBN
         /// <param name="author">A book author.</param>
         /// <param name="name">A book name.</param>
-        public Book(int isbn, string author, string name) : this(isbn)
+        public Book(string isbn, string author, string name) : this(isbn)
         {
             Author = author;
             Name = name;
@@ -52,7 +60,7 @@ namespace BookStore
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="price"/> less than 0.
         /// </exception>
-        public Book(int isbn, string author, string name, decimal price) : this(isbn, author, name)
+        public Book(string isbn, string author, string name, decimal price) : this(isbn, author, name)
         {
             if (price < 0)
             {
@@ -75,7 +83,7 @@ namespace BookStore
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numOfPages"/> less than or equal to 0.
         /// </exception>
-        public Book(int isbn, string author, string name, string publishingHouse, short publishingYear, int numOfPages, decimal price)
+        public Book(string isbn, string author, string name, string publishingHouse, short publishingYear, int numOfPages, decimal price)
                                        : this(isbn, author, name, price)
         {
             if (numOfPages <= 0)
@@ -95,7 +103,7 @@ namespace BookStore
         /// <summary>
         /// International Standard Book Number.
         /// </summary>
-        public int ISBN { get; private set; }
+        public string ISBN { get; private set; }
 
         /// <summary>
         /// Book author.
@@ -196,7 +204,7 @@ namespace BookStore
 
         #endregion !Equals public methods.
 
-        #region ToString pubic method
+        #region ToString pubic methods
 
         /// <summary>
         /// Returns a string representation of the <see cref="Book"/> object.
@@ -212,11 +220,64 @@ namespace BookStore
                 throw new ArgumentNullException();
             }
 
-            return "IBSN: " + ISBN.ToString() + "\nName: "+ Name + "\nAuthor: " + Author + "\nPublishing house: " + PublishingHouse +
+            return "ISBN: " + ISBN + "\nName: "+ Name + "\nAuthor: " + Author + "\nPublishing house: " + PublishingHouse +
                 "\nPublishing year: " + PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString() + "\nPrice: " + Price.ToString("C", CultureInfo.CurrentCulture);
         }
 
-        #endregion !ToString pubic method.
+        /// <summary>
+        /// Returns a string representation of the <see cref="Book"/> object in passed format.
+        /// </summary>
+        /// <param name="format">A format of string.</param>
+        /// <exception cref="FormatException">
+        /// Thrown when <paramref name="format"/> not found in the enum of string formats.
+        /// </exception>
+        /// <returns>A string representation of the <see cref="Book"/> object in passed format.</returns>
+        public string ToString(string format)
+        {
+            StringFormat stringFormat;
+
+            if (!Enum.TryParse<StringFormat>(format, out stringFormat))
+            {
+                throw new FormatException("Incorrect string format.");
+            }
+
+            switch (stringFormat)
+            {
+                case StringFormat.AT:
+                    {
+                        return "Author: " + Author + "\nName: " + Name;
+                    }
+
+                case StringFormat.ATH:
+                    {
+                        return "Author: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse;
+                    }
+
+                case StringFormat.ATHY:
+                    {
+                        return "Author: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse + "\nPublishing year: " + PublishingYear.ToString();
+                    }
+
+                case StringFormat.IATHYN:
+                    {
+                        return "ISBN: " + ISBN + "\nAuthor: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse +
+                            "\nPublishing year: " + PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString();
+                    }
+
+                case StringFormat.IATHYNP:
+                    {
+                        return "ISBN: " + ISBN + "\nAuthor: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse + "\nPublishing year: " +
+                            PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString() + "\nPrice: " + Price.ToString("C", CultureInfo.CurrentCulture);
+                    }
+
+                default:
+                    {
+                        throw new FormatException("Incorrect string format.");
+                    }
+            }
+        }
+
+        #endregion !ToString pubic methods.
 
         #region GetHashCode public method
 
