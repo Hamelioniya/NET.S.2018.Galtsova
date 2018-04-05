@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
-    <Compile Include="BookListService.cs" />
+    <Compile Include="CustomerBookFormatter.cs" />
+    <Compile Include="Service\BookListService.cs" />
     <Compile Include="Comparators\ComparatorByPrice.cs" />
     <Compile Include="Comparators\ComparatorByPublishingYear.cs" />
     <Compile Include="Comparators\ComparatorByPublishingHouse.cs" />
@@ -50,12 +51,13 @@
     <Compile Include="Comparators\ComparatorByAuthor.cs" />
     <Compile Include="Comparators\ComparatorByISBN.cs" />
     <Compile Include="Exceptions\BookAlreadyExistsException.cs" />
-    <Compile Include="BookListStorage.cs" />
+    <Compile Include="Storage\Implementations\BookListStorage.cs" />
     <Compile Include="Exceptions\BookNotFoundException.cs" />
-    <Compile Include="IBookListStorage.cs" />
+    <Compile Include="Storage\IBookListStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringFormat.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

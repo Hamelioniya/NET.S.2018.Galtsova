@@ -6,7 +6,7 @@ namespace BookStore
     /// <summary>
     /// Represents a book.
     /// </summary>
-    public class Book : IComparable, IComparable<Book>, IEquatable<Book>
+    public class Book : IComparable, IComparable<Book>, IEquatable<Book>, IFormattable
     {
         #region Public constructors
 
@@ -22,7 +22,7 @@ namespace BookStore
         /// </exception>
         public Book(string isbn)
         {
-            if(ReferenceEquals(isbn, null))
+            if (ReferenceEquals(isbn, null))
             {
                 throw new ArgumentNullException(nameof(isbn));
             }
@@ -207,38 +207,46 @@ namespace BookStore
         #region ToString pubic methods
 
         /// <summary>
-        /// Returns a string representation of the <see cref="Book"/> object.
+        /// Gets a string representation of the <see cref="Book"/> object.
         /// </summary>
         /// <exception cref="ArgumentNullException">
         /// Thrown when a current <see cref="Book"/> object equal to null.
         /// </exception>
         /// <returns>A string representation of the <see cref="Book"/> object.</returns>
-        public override string ToString()
-        {
-            if (ReferenceEquals(this, null))
-            {
-                throw new ArgumentNullException();
-            }
-
-            return "ISBN: " + ISBN + "\nName: "+ Name + "\nAuthor: " + Author + "\nPublishing house: " + PublishingHouse +
-                "\nPublishing year: " + PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString() + "\nPrice: " + Price.ToString("C", CultureInfo.CurrentCulture);
-        }
+        public override string ToString() => ToString("IATHYNP", null);
 
         /// <summary>
-        /// Returns a string representation of the <see cref="Book"/> object in passed format.
+        /// Gets a string representation of the <see cref="Book"/> object in passed format.
         /// </summary>
         /// <param name="format">A format of string.</param>
         /// <exception cref="FormatException">
         /// Thrown when <paramref name="format"/> not found in the enum of string formats.
         /// </exception>
         /// <returns>A string representation of the <see cref="Book"/> object in passed format.</returns>
-        public string ToString(string format)
+        public string ToString(string format) => ToString(format, null);
+
+        /// <summary>
+        /// Gets a string representation of the <see cref="Book"/> object in <paramref name="format"/>
+        /// using <paramref name="formatProvider"/>.
+        /// </summary>
+        /// <param name="format">A format of string.</param>
+        /// <param name="formatProvider">A format provider.</param>
+        /// <exception cref="FormatException">
+        /// Thrown when <paramref name="format"/> not found in the enum of string formats.
+        /// </exception>
+        /// <returns>A string representation of the <see cref="Book"/> object in passed format.</returns>
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             StringFormat stringFormat;
 
-            if (!Enum.TryParse<StringFormat>(format, out stringFormat))
+            if (!Enum.TryParse<StringFormat>(format.ToUpper(), out stringFormat))
             {
                 throw new FormatException("Incorrect string format.");
+            }
+
+            if (ReferenceEquals(formatProvider, null))
+            {
+                formatProvider = CultureInfo.CurrentCulture;
             }
 
             switch (stringFormat)
@@ -255,19 +263,19 @@ namespace BookStore
 
                 case StringFormat.ATHY:
                     {
-                        return "Author: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse + "\nPublishing year: " + PublishingYear.ToString();
+                        return "Author: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse + "\nPublishing year: " + PublishingYear.ToString(formatProvider);
                     }
 
                 case StringFormat.IATHYN:
                     {
                         return "ISBN: " + ISBN + "\nAuthor: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse +
-                            "\nPublishing year: " + PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString();
+                            "\nPublishing year: " + PublishingYear.ToString(formatProvider) + "\nNumber of pages: " + NumOfPages.ToString(formatProvider);
                     }
 
                 case StringFormat.IATHYNP:
                     {
                         return "ISBN: " + ISBN + "\nAuthor: " + Author + "\nName: " + Name + "\nPublishing house: " + PublishingHouse + "\nPublishing year: " +
-                            PublishingYear.ToString() + "\nNumber of pages: " + NumOfPages.ToString() + "\nPrice: " + Price.ToString("C", CultureInfo.CurrentCulture);
+                            PublishingYear.ToString(formatProvider) + "\nNumber of pages: " + NumOfPages.ToString(formatProvider) + "\nPrice: " + Price.ToString("C", formatProvider);
                     }
 
                 default:
