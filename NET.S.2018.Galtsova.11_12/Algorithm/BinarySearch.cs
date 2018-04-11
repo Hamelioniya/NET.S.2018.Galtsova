@@ -18,8 +18,8 @@ namespace Algorithm
         /// <exception cref="ArgumentNullException">
         /// Thrown when <paramref name="arrayOfElments"/> equal to null.
         /// </exception>
-        /// <exception cref="ArithmeticException">
-        /// Thrown when the <paramref name="arrayOfElements"/> is empty.
+        /// <exception cref="ArgumentException">
+        /// Thrown when the <paramref name="arrayOfElements"/> is empty or unsorted in ascending order.
         /// </exception>
         /// <returns>Index of the <paramref name="element"/> in the <paramref name="arrayOfElements"/>, -1 if element not found.</returns>
         public static int Search(T[] arrayOfElements, T element, IComparer<T> comparator)
@@ -32,6 +32,14 @@ namespace Algorithm
             if (arrayOfElements.Length == 0)
             {
                 throw new ArgumentException("Array of elements must contains more than 0 elements.", nameof(arrayOfElements));
+            }
+
+            for (int i = 0; i < arrayOfElements.Length - 1; i++)
+            {
+                if (comparator.Compare(arrayOfElements[i], arrayOfElements[i + 1]) > 0)
+                {
+                    throw new ArgumentException("Array of elements must be sorted.", nameof(arrayOfElements));
+                }
             }
 
             if ((comparator.Compare(element, arrayOfElements[0]) < 0) || (comparator.Compare(element, arrayOfElements[arrayOfElements.Length - 1]) > 0))

@@ -30,9 +30,9 @@ namespace Algorithm.Tests
         }
 
         [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCasesArgumentException))]
-        public void Search_ArgumentExceptionTests(string[] array, string element, IComparer<string> comparator)
+        public void Search_ArgumentExceptionTests(int[] array, int element, IComparer<int> comparator)
         {
-            Assert.Throws<ArgumentException>(() => BinarySearch<string>.Search(array, element, comparator));
+            Assert.Throws<ArgumentException>(() => BinarySearch<int>.Search(array, element, comparator));
         }
 
         private class TestCasesClass
@@ -73,7 +73,9 @@ namespace Algorithm.Tests
             {
                 get
                 {
-                    yield return new TestCaseData(new string[0], string.Empty, new ComparatorString());
+                    yield return new TestCaseData(new int[0], 0, new ComparatorInt());
+
+                    yield return new TestCaseData(new[] { 11, 15, 20, 45, 78, 9 }, 15, new ComparatorInt());
                 }
             }
         }
