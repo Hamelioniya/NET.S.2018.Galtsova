@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BookStore.Exceptions;
+using Logger;
 
 namespace BookStore
 {
@@ -13,6 +14,7 @@ namespace BookStore
 
         private List<Book> _books;
         private IBookListStorage _bookListStorage;
+        private ILogger _logger = new NLogger(typeof(BookListService));
 
         #endregion !Private fields.
 

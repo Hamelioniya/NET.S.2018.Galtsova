@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Logger;
 
 namespace BookStore
 {
@@ -9,9 +10,15 @@ namespace BookStore
     /// </summary>
     public class BookListStorage : IBookListStorage
     {
-        #region Private fields
+        #region Private const fields
 
         private const string StorageFilePath = "books.txt";
+
+        #endregion !Private fields.
+
+        #region Private fields
+
+        private ILogger _logger = new NLogger(typeof(BookListStorage));
 
         #endregion !Private fields.
 

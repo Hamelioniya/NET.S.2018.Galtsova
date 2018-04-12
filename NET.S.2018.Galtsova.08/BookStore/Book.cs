@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Logger;
 
 namespace BookStore
 {
@@ -8,6 +9,12 @@ namespace BookStore
     /// </summary>
     public class Book : IComparable, IComparable<Book>, IEquatable<Book>, IFormattable
     {
+        #region Private fields
+
+        private ILogger _logger = new NLogger(typeof(Book));
+
+        #endregion !Private fields.
+
         #region Public constructors
 
         /// <summary>
