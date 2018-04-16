@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace DataStructure.Tests
 {
     [TestFixture]
-    class DiagonalMatrixTests
+    public class DiagonalMatrixTests
     {
         [TestCase(2)]
         public void Constructor_ArgumentExceptionIsDiagonalTests(int order)

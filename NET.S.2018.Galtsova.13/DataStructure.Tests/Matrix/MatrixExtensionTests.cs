@@ -49,7 +49,7 @@ namespace DataStructure.Tests
         }
 
         [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCaseSquareSymmetrical))]
-        public void Add_SquareAddToSymmetricalMatrixTests(SquareMatrix<int> firstMatrix, SymmetricalMatrix<int> secondMatrix,SymmetricalMatrix<int> expectedMatrix)
+        public void Add_SquareAddToSymmetricalMatrixTests(SquareMatrix<int> firstMatrix, SymmetricalMatrix<int> secondMatrix, SymmetricalMatrix<int> expectedMatrix)
         {
             SymmetricalMatrix<int> result = firstMatrix.Add(secondMatrix);
 
@@ -75,20 +75,6 @@ namespace DataStructure.Tests
                 }
             }
         }
-
-        //[Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCaseSquareDiagonal))]
-        //public void Add_DiagonalAddToSymmetricalMatrixTests(DiagonalMatrix<int> firstMatrix, SymmetricalMatrix<int> secondMatrix, SymmetricalMatrix<int> expectedMatrix)
-        //{
-        //    SymmetricalMatrix<int> result = firstMatrix.Add(secondMatrix);
-
-        //    for (int i = 0; i < result.Order; i++)
-        //    {
-        //        for (int j = 0; j < result.Order; j++)
-        //        {
-        //            Assert.AreEqual(expectedMatrix[i, j], result[i, j]);
-        //        }
-        //    }
-        //}
 
         private class TestCasesClass
         {
@@ -146,18 +132,6 @@ namespace DataStructure.Tests
                         new SquareMatrix<int>(new int[,] { { 3, 2 }, { 4, 6 } }));
                 }
             }
-
-            public static IEnumerable TestCaseDiagonalSymmetrical
-            {
-                get
-                {
-                    yield return new TestCaseData(
-                        new DiagonalMatrix<int>(new int[,] { { 1, 0 }, { 0, 3 } }),
-                        new SymmetricalMatrix<int>(new int[,] { { 2, 3 }, { 3, 3 } }),
-                        new SymmetricalMatrix<int>(new int[,] { { 3, 3 }, { 3, 6 } }));
-                }
-            }
         }
-
     }
 }

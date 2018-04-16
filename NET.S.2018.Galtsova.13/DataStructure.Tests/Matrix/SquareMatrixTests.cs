@@ -41,7 +41,6 @@ namespace DataStructure.Tests
                 indexI, indexJ, oldElement, element), handler.Result);
         }
 
-
         [TestCase(1, 1, 0, 1)]
         [TestCase(1, 0, 1, 1)]
         [TestCase(1, 1, 1, 1)]
