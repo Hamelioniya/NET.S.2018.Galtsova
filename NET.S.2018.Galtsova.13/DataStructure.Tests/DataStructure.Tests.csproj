@@ -48,10 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarySearchTree\BinarySearchTreeTests.cs" />
+    <Compile Include="BinarySearchTree\Book.cs" />
+    <Compile Include="BinarySearchTree\Comparators\ComparatorBook.cs" />
+    <Compile Include="BinarySearchTree\Comparators\ComparatorInt.cs" />
+    <Compile Include="BinarySearchTree\Comparators\ComparatorPoint.cs" />
+    <Compile Include="BinarySearchTree\Comparators\ComparatorString.cs" />
     <Compile Include="Matrix\DiagonalMatrixTests.cs" />
     <Compile Include="Matrix\Handler.cs" />
     <Compile Include="Matrix\MatrixExtensionTests.cs" />
     <Compile Include="Matrix\SquareMatrixTests.cs" />
+    <Compile Include="BinarySearchTree\Point.cs" />
     <Compile Include="Queue\QueueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Matrix\SymmetricalMatrixTests.cs" />

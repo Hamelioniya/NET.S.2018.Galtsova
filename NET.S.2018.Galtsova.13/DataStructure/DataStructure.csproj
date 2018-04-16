@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarySearchTree\BinarySearchTree.cs" />
+    <Compile Include="BinarySearchTree\BinaryTreeNode.cs" />
     <Compile Include="Matrix\DiagonalMatrix.cs" />
     <Compile Include="Matrix\SquareMatrix.cs" />
     <Compile Include="Matrix\MatrixEventArgs.cs" />
