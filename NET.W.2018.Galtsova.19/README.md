@@ -1,0 +1,3 @@
+<h1>Задание:</h1>
+Добавить в проект (Homework. Day 15) для работы с банковским счетом реализацию DAL, реализуя его как обертку над ORM ADO.NET Entity Framework. Протестировать работу в консоли. Если возникнет необходимость, выполнить ”сквозные” изменения в solution-e (BLL,BLL.Interface и т.п.).<br>
+<a href="https://github.com/Hamelioniya/NET.S.2018.Galtsova/tree/master/NET.S.2018.Galtsova.14_15">Перейти</a>
