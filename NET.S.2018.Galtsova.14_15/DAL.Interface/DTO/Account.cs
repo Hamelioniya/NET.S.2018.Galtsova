@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Interface.DTO
 {
     /// <summary>
     /// Represents an account.
     /// </summary>
+    [Table("account")]
     public class Account
     {
         /// <summary>

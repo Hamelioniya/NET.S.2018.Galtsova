@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using BLL.Interface.Entities;
 using BLL.Interface.Interfaces;
 using DependencyResolver;
 using Ninject;
@@ -20,17 +22,19 @@ namespace ConsolePL
             IBankAccountService service = Resolver.Get<IBankAccountService>();
             IIDGenerator idGenerator = Resolver.Get<IIDGenerator>();
 
-            service.OpenBankAccount("Ivan", "Ivanov", 10, idGenerator);
+            service.OpenBankAccount("Ivan", "Ivanov", 12, idGenerator);
             service.OpenBankAccount("Petr", "Petrov", 120, idGenerator, AccountType.Gold);
             service.OpenBankAccount("Anna", "Ivanova", 1, idGenerator);
 
-            foreach (var item in service.GetAllAccounts())
+            List<BankAccount> accounts = (List<BankAccount>)service.GetAllAccounts();
+
+            foreach (var item in accounts)
             {
                 Console.WriteLine(item);
             }
 
-            service.Refill(1, 30);
-            service.Withdrawal(2, 100);
+            service.Refill(accounts.Find(account => account.UserName == "Ivan" && account.UserSurname == "Ivanov").ID, 1);
+            service.Withdrawal(accounts.Find(account => account.UserName == "Petr" && account.UserSurname == "Petrov").ID, 100);
 
             Console.WriteLine("--------------------------------");
 
@@ -39,7 +43,7 @@ namespace ConsolePL
                 Console.WriteLine(item);
             }
 
-            service.CloseBankAccount(1);
+            service.CloseBankAccount(accounts.Find(account => account.UserName == "Ivan" && account.UserSurname == "Ivanov").ID);
 
             Console.WriteLine("--------------------------------");
 
@@ -47,6 +51,9 @@ namespace ConsolePL
             {
                 Console.WriteLine(item);
             }
+
+            service.CloseBankAccount(accounts.Find(account => account.UserName == "Petr" && account.UserSurname == "Petrov").ID);
+            service.CloseBankAccount(accounts.Find(account => account.UserName == "Anna" && account.UserSurname == "Ivanova").ID);
 
             Console.ReadKey();
         }
