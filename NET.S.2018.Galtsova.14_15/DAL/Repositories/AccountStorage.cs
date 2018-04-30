@@ -68,12 +68,12 @@ namespace DAL.Repositories
                 throw new ArgumentNullException(nameof(account));
             }
 
-            if (_accounts.Exists(x => x.Id == account.Id))
+            if (_accounts.Exists(x => x.UserName == account.UserName && x.UserSurname == account.UserSurname))
             {
                 throw new AccountAlreadyExistsException("This account already exists.");
             }
 
-            if (!ReferenceEquals(_accounts.Find(x => x.Id == account.Id), null))
+            if (_accounts.Exists(x => x.Id == account.Id))
             {
                 throw new AccountAlreadyExistsException("Account with such ID already exists.");
             }
@@ -123,7 +123,7 @@ namespace DAL.Repositories
                 throw new ArgumentNullException(nameof(account));
             }
 
-            if (ReferenceEquals(_accounts.Find(x => x.Id == account.Id), null))
+            if (!_accounts.Exists(x => x.Id == account.Id))
             {
                 throw new AccountNotFoundException("Account with such ID not found.");
             }
@@ -142,7 +142,7 @@ namespace DAL.Repositories
         /// <returns>The account with the <paramref name="id"/> from the list of accounts.</returns>
         public Account GetAccount(int id)
         {
-            if (ReferenceEquals(_accounts.Find(x => x.Id == id), null))
+            if (!_accounts.Exists(x => x.Id == id))
             {
                 throw new AccountNotFoundException("Account with such ID not found.");
             }

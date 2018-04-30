@@ -7,7 +7,7 @@ namespace BLL.Repositories
     {
         private int _id;
 
-        public IDGenerator() : this(0)
+        public IDGenerator() : this(1)
         {
         }
 
@@ -25,9 +25,9 @@ namespace BLL.Repositories
 
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException("The id must be greater than or equal to 0.", nameof(Id));
+                    throw new ArgumentOutOfRangeException("The id must be greater than 0.", nameof(Id));
                 }
 
                 _id = value;

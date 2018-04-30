@@ -178,12 +178,12 @@ namespace BLL.Repositories
 
             UpdateList();
 
-            if (ReferenceEquals(_bankAccounts.Find(x => x.ID == id), null))
+            BankAccount bankAccount = _bankAccounts.Find(x => x.ID == id);
+
+            if (ReferenceEquals(bankAccount, null))
             {
                 throw new BankServiceException("No such bank account.");
             }
-
-            BankAccount bankAccount = _bankAccounts.Find(x => x.ID == id);
 
             try
             {
@@ -221,18 +221,19 @@ namespace BLL.Repositories
 
             UpdateList();
 
-            if (ReferenceEquals(_bankAccounts.Find(x => x.ID == id), null))
+            BankAccount bankAccount = _bankAccounts.Find(x => x.ID == id);
+
+            if (ReferenceEquals(bankAccount, null))
             {
                 throw new BankServiceException("No such bank account.");
             }
 
-            BankAccount bankAccount = _bankAccounts.Find(x => x.ID == id);
             AccountTypeFeatures features = new AccountTypeFeatures(bankAccount.Type);
 
             try
             {
                 bankAccount.RefillAmount(amount + features.RefillPrice);
-                bankAccount.SetBonusFromOperation(_bonusCouter.GetBonusFromRefill(id, amount));
+                bankAccount.SetBonusFromOperation(_bonusCouter.GetBonusFromRefill((int)bankAccount.Type, amount));
 
                 _bankAccountStorage.UpdateAccount(bankAccount.ToAccount());
             }
@@ -272,20 +273,21 @@ namespace BLL.Repositories
 
             UpdateList();
 
-            if (ReferenceEquals(_bankAccounts.Find(x => x.ID == id), null))
+            BankAccount bankAccount = _bankAccounts.Find(x => x.ID == id);
+
+            if (ReferenceEquals(bankAccount, null))
             {
                 throw new BankServiceException("No such bank account.");
             }
 
-            BankAccount account = _bankAccounts.Find(x => x.ID == id);
-            AccountTypeFeatures features = new AccountTypeFeatures(account.Type);
+            AccountTypeFeatures features = new AccountTypeFeatures(bankAccount.Type);
 
             try
             {
-                account.WithdrawalAmount(amount - features.WithdrawalPrice);
-                account.SetBonusFromOperation(_bonusCouter.GetBonuxFromWithdrawal(id, amount));
+                bankAccount.WithdrawalAmount(amount - features.WithdrawalPrice);
+                bankAccount.SetBonusFromOperation(_bonusCouter.GetBonuxFromWithdrawal((int)bankAccount.Type, amount));
 
-                _bankAccountStorage.UpdateAccount(account.ToAccount());
+                _bankAccountStorage.UpdateAccount(bankAccount.ToAccount());
             }
             catch (InsufficientFundsException ex)
             {

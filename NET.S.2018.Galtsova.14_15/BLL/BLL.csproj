@@ -46,7 +46,9 @@
     <Compile Include="Repositories\BonusCounter.cs" />
     <Compile Include="Repositories\IDGenerator.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL.Interface\BLL.Interface.csproj">
       <Project>{C72F1BC6-FDAF-4B2D-A0FA-1A35FC36274A}</Project>
