@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Moq;
 using DAL.Interface.Interfaces;
 using BLL.Interface.Interfaces;
-using BLL.Repositories;
+using BLL.Services;
 using DAL.Interface.DTO;
 using System.Collections;
 

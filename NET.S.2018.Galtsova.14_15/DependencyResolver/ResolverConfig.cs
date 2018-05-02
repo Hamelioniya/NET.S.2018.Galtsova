@@ -1,8 +1,10 @@
 ﻿using BLL.Interface.Interfaces;
-using BLL.Repositories;
+using BLL.Services;
+using BLL.Generators;
+using BLL.Counters;
 using DAL.Interface.Interfaces;
-using DAL.Repositories;
 using Ninject;
+using DAL.EF.Repositories;
 
 namespace DependencyResolver
 {

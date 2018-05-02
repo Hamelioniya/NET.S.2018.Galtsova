@@ -1,7 +1,7 @@
 ﻿using System;
 using BLL.Interface.Interfaces;
 
-namespace BLL.Repositories
+namespace BLL.Generators
 {
     public class IDGenerator : IIDGenerator
     {

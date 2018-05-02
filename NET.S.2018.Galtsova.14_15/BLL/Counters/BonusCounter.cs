@@ -1,7 +1,7 @@
 ﻿using BLL.Interface.Entities;
 using BLL.Interface.Interfaces;
 
-namespace BLL.Repositories
+namespace BLL.Counters
 {
     /// <summary>
     /// Represents a bonus counter.

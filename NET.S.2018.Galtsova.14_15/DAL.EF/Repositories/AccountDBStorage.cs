@@ -5,7 +5,7 @@ using DAL.Interface.DTO;
 using DAL.Interface.Exceptions;
 using DAL.Interface.Interfaces;
 
-namespace DAL.Repositories
+namespace DAL.EF.Repositories
 {
     /// <summary>
     /// Represents an account storage.

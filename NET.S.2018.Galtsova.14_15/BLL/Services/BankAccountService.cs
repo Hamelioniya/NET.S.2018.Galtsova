@@ -8,7 +8,7 @@ using BLL.Mappers;
 using DAL.Interface.Exceptions;
 using DAL.Interface.Interfaces;
 
-namespace BLL.Repositories
+namespace BLL.Services
 {
     /// <summary>
     /// Represents a bank account service.
