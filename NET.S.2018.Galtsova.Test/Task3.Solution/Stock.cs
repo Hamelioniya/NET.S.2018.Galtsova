@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Task3
+namespace Task3.Solution
 {
     public class Stock
     {
@@ -18,7 +18,7 @@ namespace Task3
             stocksInfo.USD = rnd.Next(20, 40);
             stocksInfo.Euro = rnd.Next(30, 50);
 
-            StockEventArgs eventArgs = new StockEventArgs() { Date = DateTime.Now };
+            StockEventArgs eventArgs = new StockEventArgs() { Date = DateTime.Now, StockInfo = stocksInfo };
 
             OnTimeElapsed(eventArgs);
         }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Task3
 {
-    public interface IObserver
+    public class StockEventArgs
     {
-        void Update(object observeble);
+        public DateTime Date { get; set; }
+
+        public StockInfo StockInfo { get; set; }
     }
 }
