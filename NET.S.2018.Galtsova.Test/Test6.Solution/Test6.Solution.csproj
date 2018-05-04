@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ElementEnumerator.cs" />
+    <Compile Include="FormulaSecond.cs" />
+    <Compile Include="FormulaFibonacci.cs" />
+    <Compile Include="FormulaThird.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
