@@ -1,9 +1,8 @@
-﻿namespace Task5.Console
-{
-    using System.Collections.Generic;
-    using System;
-    using Task5;
+﻿using System.Collections.Generic;
+using Task5.Solution;
 
+namespace Task5.Console
+{
     class Program
     {
         static void Main(string[] args)
@@ -17,11 +16,13 @@
 
             Document document = new Document(parts);
 
-            Console.WriteLine(document.ToHtml());
+            System.Console.WriteLine(document.Convert(new HtmlConverter()));
 
-            Console.WriteLine(document.ToPlainText());
+            System.Console.WriteLine(document.Convert(new PlainTextConverter()));
 
-            Console.WriteLine(document.ToLaTeX());
+            System.Console.WriteLine(document.Convert(new LaTeXConverter()));
+
+            System.Console.ReadKey();
         }
     }
 }
