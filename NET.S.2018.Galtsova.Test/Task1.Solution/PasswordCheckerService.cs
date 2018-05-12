@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Task1.Solution
 {
@@ -25,23 +26,21 @@ namespace Task1.Solution
         }
 
 
-        public Tuple<bool, string> VerifyPassword(string password, Func<string, Tuple<bool, string>> verifier)
+        public Tuple<bool, string> VerifyPassword(string password, IEnumerable<IVerifier> verifiers)
         {
             if (string.IsNullOrWhiteSpace(password))
             {
                 throw new ArgumentException("Password must not be empty or equal to null.", nameof(password));
             }
 
-            if (ReferenceEquals(verifier, null))
+            if (ReferenceEquals(verifiers, null))
             {
-                throw new ArgumentNullException(nameof(verifier));
+                throw new ArgumentNullException(nameof(verifiers));
             }
 
-            var verifiers = verifier.GetInvocationList();
-
-            foreach (var item in verifiers)
+            foreach (var verifier in verifiers)
             {
-                Tuple<bool, string> result = ((Func<string, Tuple<bool, string>>)item).Invoke(password);
+                Tuple<bool, string> result = verifier.Verify(password);
 
                 if (!result.Item1)
                 {

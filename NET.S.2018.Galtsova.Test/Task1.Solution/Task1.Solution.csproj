@@ -41,10 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
+    <Compile Include="IVerifier.cs" />
     <Compile Include="PasswordCheckerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlRepository.cs" />
-    <Compile Include="Verifier.cs" />
+    <Compile Include="VerifierNumOfChars.cs" />
+    <Compile Include="VerifyCharacters.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

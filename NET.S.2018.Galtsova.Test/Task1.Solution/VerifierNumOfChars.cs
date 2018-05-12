@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Task1.Solution
 {
-    public static class Verifier
+    public class VerifierNumOfChars : IVerifier
     {
-        public static Tuple<bool, string> VerifyNumOfChars(string password)
+        public Tuple<bool, string> Verify(string password)
         {
             if (string.IsNullOrWhiteSpace(password))
             {
@@ -22,23 +22,6 @@ namespace Task1.Solution
             if (password.Length >= 15)
             {
                 return Tuple.Create(false, $"{password} length too long");
-            }
-
-            return Tuple.Create(true, "Password is Ok. User was created");
-        }
-
-        public static Tuple<bool, string> VerifyCharacters(string password)
-        {
-            // check if password conatins at least one alphabetical character 
-            if (!password.Any(char.IsLetter))
-            {
-                return Tuple.Create(false, $"{password} hasn't alphanumerical chars");
-            }
-
-            // check if password conatins at least one digit character 
-            if (!password.Any(char.IsNumber))
-            {
-                return Tuple.Create(false, $"{password} hasn't digits");
             }
 
             return Tuple.Create(true, "Password is Ok. User was created");

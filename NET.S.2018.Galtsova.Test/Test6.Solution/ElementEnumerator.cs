@@ -3,61 +3,25 @@ using System.Collections.Generic;
 
 namespace Test6.Solution
 {
-    public class ElementEnumerator<T>
+    public static class ElementEnumerator<T>
     {
-        private T _firstNumber;
-        private T _secondNumber;
-
-        public ElementEnumerator(T firstNumber, T secondNumber)
-        {
-            FirstNumber = firstNumber;
-            SecondNumber = secondNumber;
-        }
-
-        private T FirstNumber
-        {
-            set
-            {
-                if ((dynamic)value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("First number must be greter than 0.", nameof(FirstNumber));
-                }
-
-                _firstNumber = value;
-            }
-        }
-
-        private T SecondNumber
-        {
-            set
-            {
-                if ((dynamic)value <= 0)
-                {
-                    throw new ArgumentOutOfRangeException("First number must be greter than 0.", nameof(SecondNumber));
-                }
-
-                _secondNumber = value;
-            }
-        }
-
-
-        public IEnumerable<T> GetNumbers(int count, Func<T, T, T> calculator)
+        public static IEnumerable<T> GetNumbers(T firstElement, T secondElement, int count, Func<T, T, T> calculator)
         {
             if (count <= 0)
             {
                 throw new ArgumentOutOfRangeException("Count of numbers must be greater than 0.", nameof(count));
             }
 
-            T firstLastNumber = _firstNumber;
-            T secondLastNumber = _secondNumber;
+            T firstLastElement = firstElement;
+            T secondLastElement = secondElement;
 
             for (int i = 0; i < count; i++)
             {
-                yield return firstLastNumber;
+                yield return firstLastElement;
 
-                T temp = secondLastNumber;
-                secondLastNumber = calculator(firstLastNumber, secondLastNumber);
-                firstLastNumber = temp;
+                T temp = secondLastElement;
+                secondLastElement = calculator(firstLastElement, secondLastElement);
+                firstLastElement = temp;
             }
         }
 

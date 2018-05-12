@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Task4.Solution.FirstVariant
+namespace Task4.Solution.Interface
 {
     public class Calculator
     {

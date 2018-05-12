@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Task1.Solution;
 
 namespace Task1.Console
@@ -10,9 +11,8 @@ namespace Task1.Console
             IRepository reposirory = new SqlRepository();
             PasswordCheckerService checker = new PasswordCheckerService(reposirory);
 
-            string password = System.Console.ReadLine();
-            Func<string, Tuple<bool, string>> verifiers = Verifier.VerifyCharacters;
-            verifiers += Verifier.VerifyNumOfChars;
+            string password = System.Console.ReadLine();    
+            List<IVerifier> verifiers = new List<IVerifier>() { new VerifierNumOfChars(), new VerifyCharacters() };
 
             System.Console.WriteLine(checker.VerifyPassword(password, verifiers));
 

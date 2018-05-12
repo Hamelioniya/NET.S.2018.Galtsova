@@ -13,12 +13,10 @@ namespace Task3.Solution
 
         public void Update(object sender, StockEventArgs e)
         {
-            StockInfo sInfo = e.StockInfo;
-
-            if (sInfo.Euro > 40)
-                Console.WriteLine("Банк {0} продает евро;  Курс евро: {1}", this.Name, sInfo.Euro);
+            if (e.Euro > 40)
+                Console.WriteLine("Банк {0} продает евро;  Курс евро: {1}", this.Name, e.Euro);
             else
-                Console.WriteLine("Банк {0} покупает евро;  Курс евро: {1}", this.Name, sInfo.Euro);
+                Console.WriteLine("Банк {0} покупает евро;  Курс евро: {1}", this.Name, e.Euro);
         }
     }
 }

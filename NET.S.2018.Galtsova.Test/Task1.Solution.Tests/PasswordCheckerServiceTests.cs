@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Task1.Solution.Tests
@@ -6,64 +8,49 @@ namespace Task1.Solution.Tests
     [TestFixture]
     public class PasswordCheckerServiceTests
     {
-        [TestCase("12qw5678", ExpectedResult = true)]
-        public bool VerifyPassword_CheckCharactersSuccessTests(string password)
+        [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCasesSuccess))]
+        public bool VerifyPassword_SuccessTests(string password, List<IVerifier> verifiers)
         {
             IRepository repository = new SqlRepository();
             PasswordCheckerService checker = new PasswordCheckerService(repository);
-
-            return checker.VerifyPassword(password, new Func<string, Tuple<bool, string>>(Verifier.VerifyCharacters)).Item1;
-        }
-
-        [TestCase("12123456", ExpectedResult = true)]
-        public bool VerifyPassword_CheckNumOfCharsSuccessTests(string password)
-        {
-            IRepository repository = new SqlRepository();
-            PasswordCheckerService checker = new PasswordCheckerService(repository);
-
-            return checker.VerifyPassword(password, new Func<string, Tuple<bool, string>>(Verifier.VerifyNumOfChars)).Item1;
-        }
-
-        [TestCase("12qw5678", ExpectedResult = true)]
-        public bool VerifyPassword_CheckCharactersAndNumOfCharsSuccessTests(string password)
-        {
-            IRepository repository = new SqlRepository();
-            PasswordCheckerService checker = new PasswordCheckerService(repository);
-
-            Func<string, Tuple<bool, string>> verifiers = Verifier.VerifyCharacters;
-            verifiers += Verifier.VerifyNumOfChars;
 
             return checker.VerifyPassword(password, verifiers).Item1;
         }
 
-        [TestCase("1321132", ExpectedResult = false)]
-        public bool VerifyPassword_CheckCharactersFailTests(string password)
+        [Test, TestCaseSource(typeof(TestCasesClass), nameof(TestCasesClass.TestCasesFail))]
+        public bool VerifyPassword_FailTests(string password, List<IVerifier> verifiers)
         {
             IRepository repository = new SqlRepository();
             PasswordCheckerService checker = new PasswordCheckerService(repository);
-
-            return checker.VerifyPassword(password, new Func<string, Tuple<bool, string>>(Verifier.VerifyCharacters)).Item1;
-        }
-
-        [TestCase("1", ExpectedResult = false)]
-        public bool VerifyPassword_CheckNumOfCharsTests(string password)
-        {
-            IRepository repository = new SqlRepository();
-            PasswordCheckerService checker = new PasswordCheckerService(repository);
-
-            return checker.VerifyPassword(password, new Func<string, Tuple<bool, string>>(Verifier.VerifyNumOfChars)).Item1;
-        }
-
-        [TestCase("12115678", ExpectedResult = false)]
-        public bool VerifyPassword_CheckCharactersAndNumOfCharsFailTests(string password)
-        {
-            IRepository repository = new SqlRepository();
-            PasswordCheckerService checker = new PasswordCheckerService(repository);
-
-            Func<string, Tuple<bool, string>> verifiers = Verifier.VerifyCharacters;
-            verifiers += Verifier.VerifyNumOfChars;
 
             return checker.VerifyPassword(password, verifiers).Item1;
+        }
+
+        private class TestCasesClass
+        {
+            public static IEnumerable TestCasesSuccess
+            {
+                get
+                {
+                    yield return new TestCaseData("12345678", new List<IVerifier>() { new VerifierNumOfChars()}).Returns(true);
+
+                    yield return new TestCaseData("123qw", new List<IVerifier>() { new VerifyCharacters() }).Returns(true);
+
+                    yield return new TestCaseData("123qw1234", new List<IVerifier>() { new VerifierNumOfChars(), new VerifyCharacters() }).Returns(true);
+                }
+            }
+
+            public static IEnumerable TestCasesFail
+            {
+                get
+                {
+                    yield return new TestCaseData("123", new List<IVerifier>() { new VerifierNumOfChars() }).Returns(false);
+
+                    yield return new TestCaseData("12313213", new List<IVerifier>() { new VerifyCharacters() }).Returns(false);
+
+                    yield return new TestCaseData("123213123", new List<IVerifier>() { new VerifierNumOfChars(), new VerifyCharacters() }).Returns(false);
+                }
+            }
         }
 
     }

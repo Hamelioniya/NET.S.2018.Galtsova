@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Task4.Solution.FirstVariant
+namespace Task4.Solution
 {
     public class AverageMeanMethodCalculator : IAverageCalculator
     {
