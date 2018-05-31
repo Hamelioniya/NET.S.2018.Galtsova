@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ASP_NET_MVC_PL.Models.BankAccountViewModel>
+
+@{
+    ViewBag.Title = "Активные счета";
+}
+
+<h2>Активные счета</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Счет</th>
+            <th scope="col">Данные владельца</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Amount)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Bonus)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    Счет №@Html.DisplayFor(modelItem => item.Id)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                    @Html.DisplayFor(modelItem => item.UserSurname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bonus)
+                </td>
+                <td>
+                    @Html.ActionLink("Закрыть cчет", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

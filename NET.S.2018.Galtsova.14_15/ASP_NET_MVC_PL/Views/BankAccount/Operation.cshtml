@@ -1,0 +1,79 @@
+﻿@model ASP_NET_MVC_PL.Models.OperationDataViewModel
+
+@{
+    ViewBag.Title = "Операция со счетом";
+}
+
+<h2>Операция со счетом</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <script>
+            function onChangeOperation() {
+                if (Operation.value === "Transfer") {
+                    AccountIdFrom.classList.remove('display-none');
+                    AccountIdFromLabel.classList.remove('display-none');
+                    AccountIdFrom.setAttribute('data-val', true);
+                    AccountIdFromValidLabel.classList.remove('display-none');
+                }
+                else {
+                    AccountIdFrom.classList.add('display-none');
+                    AccountIdFromLabel.classList.add('display-none');
+                    AccountIdFrom.setAttribute('data-val', false);
+                    AccountIdFromValidLabel.classList.add('display-none');
+                }
+            }
+        </script>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.AccountIdFrom, htmlAttributes: new { @class = "control-label col-md-2 display-none", @id = "AccountIdFromLabel" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AccountIdFrom, new { htmlAttributes = new { @class = "form-control display-none"} })
+                @Html.ValidationMessageFor(model => model.AccountIdFrom, "", new { @class = "text-danger display-none", @id = "AccountIdFromValidLabel" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AccountIdTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AccountIdTo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AccountIdTo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Operation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Operation, new List<SelectListItem> {
+                        new SelectListItem() { Text = "Пополнить счет", Value = "Refill", Selected = true},
+                        new SelectListItem() { Text = "Списать со счета", Value = "Withdrawal"},
+                        new SelectListItem() { Text = "Перевести на счет", Value = "Transfer"}}, new { @class = "form-control", @onchange = "onChangeOperation();" })
+                @Html.ValidationMessageFor(model => model.Operation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Выполнить транзакцию" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
