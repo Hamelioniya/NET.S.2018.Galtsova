@@ -257,12 +257,12 @@ namespace BLL.Interface.Entities
         /// </exception>
         public void RefillAmount(decimal amount)
         {
-            if (Amount < amount)
+            if (Amount + amount < 0)
             {
                 throw new InsufficientFundsException("Insufficient funds.");
             }
 
-            Amount = Amount - amount;
+            Amount = Amount + amount;
         }
 
         /// <summary>
@@ -274,12 +274,12 @@ namespace BLL.Interface.Entities
         /// </exception>
         public void WithdrawalAmount(decimal amount)
         {
-            if (Amount + amount < 0)
+            if (Amount < amount)
             {
                 throw new InsufficientFundsException("Insufficient funds.");
             }
 
-            Amount = Amount + amount;
+            Amount = Amount - amount;
         }
 
         /// <summary>

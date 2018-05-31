@@ -232,7 +232,7 @@ namespace BLL.Services
 
             try
             {
-                bankAccount.RefillAmount(amount + features.RefillPrice);
+                bankAccount.RefillAmount(amount - features.RefillPrice);
                 bankAccount.SetBonusFromOperation(_bonusCouter.GetBonusFromRefill((int)bankAccount.Type, amount));
 
                 _bankAccountStorage.UpdateAccount(bankAccount.ToAccount());
@@ -284,7 +284,7 @@ namespace BLL.Services
 
             try
             {
-                bankAccount.WithdrawalAmount(amount - features.WithdrawalPrice);
+                bankAccount.WithdrawalAmount(amount + features.WithdrawalPrice);
                 bankAccount.SetBonusFromOperation(_bonusCouter.GetBonuxFromWithdrawal((int)bankAccount.Type, amount));
 
                 _bankAccountStorage.UpdateAccount(bankAccount.ToAccount());

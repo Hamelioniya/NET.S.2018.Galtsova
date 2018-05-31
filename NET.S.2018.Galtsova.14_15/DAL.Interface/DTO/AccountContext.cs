@@ -12,7 +12,7 @@ namespace DAL.Interface.DTO
         /// <summary>
         /// Initializes an instance of the <see cref="AccountContext"/>.
         /// </summary>
-        public AccountContext() : base(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString)
+        public AccountContext() : base(ConfigurationManager.ConnectionStrings["BankServiceConnection"].ConnectionString)
         {
         }
 
